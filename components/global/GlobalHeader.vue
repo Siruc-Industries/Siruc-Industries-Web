@@ -1,15 +1,14 @@
 <template>
   <header id="header">
-    <a href="#default" id="logo">
+    <NuxtLink id="logo" to="/" href="#default">
       <img src="assets/icons/logo.svg" class="img" alt="Company Logo" />
       <h1 v-if="isDesktop" class="text">Siruć<br />Industries</h1>
-    </a>
+    </NuxtLink>
     <nav id="navbar">
-      <a class="active" href="#services">Services</a>
-      <a href="#projects">Projects</a>
-      <a href="#company">Company</a>
-
-      <a href="#blog">Blog</a>
+      <NuxtLink to="/services" active-class="active"> Services </NuxtLink>
+      <NuxtLink to="/projects" active-class="active"> Projects </NuxtLink>
+      <NuxtLink to="/company" active-class="active"> Company </NuxtLink>
+      <NuxtLink to="/blog" active-class="active"> Blog </NuxtLink>
     </nav>
     <div id="btns">
       <ButtonOutline>Contact</ButtonOutline>
@@ -81,6 +80,7 @@
   align-items: center;
   max-width: 1200px;
   margin: 0 auto;
+  position: relative;
 
   a {
     color: inherit;
@@ -88,17 +88,29 @@
     align-items: center;
     text-align: center;
     height: 100%;
-    padding: 0 8px;
-  }
+    padding: 0 16px;
+    position: relative;
 
-  a:hover {
-    background-color: #ddd;
-    color: black;
-  }
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0; /* Position it at the bottom of the link */
+      height: 4px; /* Thickness of the underline */
+      background-color: var(--el-color-orange);
+      clip-path: inset(0 100% 0 0); /* Start with a hidden line */
+      transition: clip-path 0.3s ease; /* Smooth reveal effect */
+    }
 
-  #header a.active {
-    background-color: dodgerblue;
-    color: white;
+    &.active::after {
+      clip-path: inset(0 0 0 0); /* Reveal the underline when active */
+    }
+
+    &:hover {
+      background-color: #ddd;
+      color: black;
+    }
   }
 }
 

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="global-container">
     <GlobalHeader />
     <main class="main-container">
       <NuxtPage />
@@ -9,17 +9,25 @@
       <BaseThemeSwitcher />
     </aside>
     <div id="grid-overlay" class="grid-overlay">
-      <div class="line" v-for="n in 7" :key="n"></div>
+      <div v-for="n in 7" :key="n" class="line"></div>
     </div>
     <GlobalFooter />
   </div>
 </template>
 
 <style scoped lang="scss">
+.global-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .main-container {
   max-width: 1200px;
   margin: 0 auto;
   padding-top: 80px;
+  display: flex;
+  flex-grow: 1;
   z-index: 1 !important;
 }
 
