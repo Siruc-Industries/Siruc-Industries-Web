@@ -50,6 +50,7 @@ body {
   transition: background-color 0.3s ease;
   margin: 0;
   min-height: 100vh;
+  letter-spacing: 0.5px;
 }
 
 .btn {
@@ -73,4 +74,30 @@ a {
 
 a {
   text-decoration: none;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+// Underline appear from left to right on hover
+.hover-underline {
+  position: relative; /* Required for the pseudo-element */
+  overflow: hidden; /* Prevent underline overflow */
+  width: fit-content;
+  /* Add underline animation */
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0; /* Initially hidden */
+    height: 2px;
+    background-color: #fff; /* Color of the underline */
+    transition: width 0.3s ease-in-out; /* Smooth animation */
+  }
+  &:hover::after {
+    width: 100%; /* Full width on hover */
+  }
 }
