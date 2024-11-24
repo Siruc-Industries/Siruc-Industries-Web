@@ -2,7 +2,13 @@
   <NuxtLink :to="`/blog/${id}`">
     <div class="card">
       <div class="img-holder">
-        <img class="card-img" src="~/assets/imgs/placeholder.png" />
+        <img
+          v-if="image"
+          :src="`http://localhost:5000${image}`"
+          alt="Article image"
+          class="card-img"
+        />
+        <img v-else class="card-img" src="~/assets/imgs/placeholder.png" />
       </div>
       <div class="content">
         <div class="info-container">
@@ -101,6 +107,10 @@ export default {
     id: {
       type: Number,
       required: true,
+    },
+    image: {
+      type: String,
+      required: false,
     },
   },
   computed: {

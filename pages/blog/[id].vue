@@ -2,6 +2,12 @@
   <div class="container">
     <h1>{{ article.title }}</h1>
     <p>{{ article.text }}</p>
+    <img
+      v-if="article.image"
+      :src="`http://localhost:5000${article.image}`"
+      alt="Article image"
+      class="card-image"
+    />
     <p>Written by: {{ article.author }}</p>
     <p>Published on: {{ article.createdAt }}</p>
   </div>

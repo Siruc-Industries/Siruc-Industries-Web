@@ -7,6 +7,7 @@
         :id="article.id"
         :key="article.id"
         :index="index + 1"
+        :image="article.image"
         :title="article.title"
         :createdAt="article.createdAt"
       />
