@@ -2,7 +2,9 @@
   <div class="global-container">
     <GlobalHeader />
     <main class="main-container">
-      <NuxtPage />
+      <div class="index-wrapper">
+        <NuxtPage />
+      </div>
     </main>
     <aside class="aside">
       <LineToggleEffect @toggle="toggleLines" />
@@ -30,6 +32,10 @@
   z-index: 1 !important;
 }
 
+.index-wrapper {
+  width: 100%;
+}
+
 .aside {
   position: fixed;
   bottom: 12px;
@@ -37,6 +43,7 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+  z-index: 1000;
 }
 
 .grid-overlay {

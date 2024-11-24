@@ -15,5 +15,6 @@ export default withNuxt({
       },
     ],
     'vue/block-order': 'off', // Disable block order rule for flexibility (e.g., style after script)
+    'vue/attribute-hyphenation': 'off',
   },
 });

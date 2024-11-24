@@ -81,6 +81,13 @@ a {
   margin: 0 auto;
 }
 
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Three columns */
+  gap: 20px;
+  padding: 16px 0;
+}
+
 // Underline appear from left to right on hover
 .hover-underline {
   position: relative; /* Required for the pseudo-element */

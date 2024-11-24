@@ -1,5 +1,5 @@
 <template>
-  <div class="index-wrapper">
+  <div>
     <section class="container section-container">
       <div class="section-body">
         <h1 class="greeting-title">
@@ -38,7 +38,7 @@
     <div class="connect-container">
       <div class="connect-body container">
         <div class="pointer hover-underline" @click="scrollToContact">
-          <h3>Let's talk about your project!</h3>
+          <h3 class="invite">Let's talk about your project!</h3>
           <img src="assets/icons/arrow-right.svg" class="arrow-img" alt="Arrow right" />
         </div>
       </div>
@@ -129,10 +129,6 @@ canvas {
   pointer-events: all;
 }
 
-.index-wrapper {
-  width: 100%;
-}
-
 .connect {
   &-container {
     background-color: #222224;
@@ -149,7 +145,7 @@ canvas {
         transform: scale(1.3);
       }
     }
-    h3 {
+    .invite {
       font-size: 32px;
     }
     .arrow-img {
@@ -187,13 +183,6 @@ canvas {
 .classifier {
   font-style: italic;
   font-weight: 500;
-}
-
-.card-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Three columns */
-  gap: 20px;
-  padding: 16px 0;
 }
 
 @media (max-width: 768px) {

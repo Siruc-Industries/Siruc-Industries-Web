@@ -20,15 +20,18 @@
 
 <style scoped lang="scss">
 .btn {
-  padding: 12px 20px !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  border: none;
+
   &-bg {
-    background-color: var(--el-color-link);
-    border-color: var(--el-color-link);
+    background-color: transparent;
   }
 }
 
 span {
   color: var(--el-color-text);
+  font-weight: 500 !important;
 }
 
 .icon {

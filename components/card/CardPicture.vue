@@ -8,7 +8,7 @@
       <p class="text">{{ text }}</p>
     </div>
     <div>
-      <ButtonLink href="/about" :straight="true" text="Read More" />
+      <Button href="/blog" :circledArrow="true" text="Learn More" />
     </div>
   </div>
 </template>
