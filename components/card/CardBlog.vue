@@ -27,7 +27,7 @@
 .card {
   display: flex;
   flex-direction: column;
-  background: transparent;
+  background: var(--el-color-bg);
   border-radius: 8px;
   color: var(--el-color-text);
   max-width: 380px;
