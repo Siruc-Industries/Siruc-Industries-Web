@@ -12,7 +12,11 @@
       </div>
       <div class="content">
         <div class="info-container">
-          <p>tab</p>
+          <div class="row">
+            <span v-for="(tab, idx) in labs" :key="idx" class="tab">
+              {{ tab }}
+            </span>
+          </div>
           <p class="date">{{ formattedDate }}</p>
         </div>
         <div class="title-container">
@@ -35,6 +39,7 @@
   cursor: pointer;
   overflow: hidden;
   transition: box-shadow 0.2s ease;
+  height: 100%;
 }
 
 .img-holder {
@@ -68,7 +73,7 @@
   display: flex;
   flex-direction: column;
   padding: 24px 16px;
-  gap: 20px;
+  gap: 16px;
 
   .info-container {
     display: flex;
@@ -76,6 +81,20 @@
 
     .date {
       color: var(--el-color-secondary);
+    }
+
+    .row {
+      display: flex;
+      flex-direction: row;
+      gap: 12px;
+    }
+
+    .tab {
+      background-color: #00000021;
+      border-radius: 30px;
+      font-size: 11px;
+      font-weight: 400;
+      padding: 4px 8px;
     }
   }
 
@@ -93,36 +112,38 @@
 }
 </style>
 
-<script>
-export default {
-  props: {
-    title: {
-      type: String,
-      required: true,
-    },
-    createdAt: {
-      type: String,
-      required: true,
-    },
-    id: {
-      type: Number,
-      required: true,
-    },
-    image: {
-      type: String,
-      required: false,
-    },
+<script setup>
+import { computed, defineProps, ref } from 'vue';
+
+// Define props for the component
+const props = defineProps({
+  title: {
+    type: String,
+    required: true,
   },
-  computed: {
-    formattedDate() {
-      // Parse the ISO date and format it using Intl.DateTimeFormat
-      const date = new Date(this.createdAt);
-      return new Intl.DateTimeFormat('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-      }).format(date);
-    },
+  createdAt: {
+    type: String,
+    required: true,
   },
-};
+  id: {
+    type: Number,
+    required: true,
+  },
+  image: {
+    type: String,
+    required: false,
+  },
+});
+
+const labs = ref(['Tab 1', 'Tab 2']);
+
+const formattedDate = computed(() => {
+  if (!props.createdAt) return '---';
+  const date = new Date(props.createdAt);
+  return new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  }).format(date);
+});
 </script>
