@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="href" custom v-slot="{ navigate }">
+  <router-link v-slot="{ navigate }" :to="href" custom>
     <el-button class="btn btn-bg" @click="navigate">
       <span>{{ text }}</span>
       <img

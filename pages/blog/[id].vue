@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="blog-container">
     <h1>{{ article.title }}</h1>
     <p>{{ article.text }}</p>
     <img
@@ -35,3 +35,15 @@ onMounted(() => {
   loadArticle(id);
 });
 </script>
+
+<style scoped lang="scss">
+.blog-container {
+  max-width: 636px;
+  margin: 0 auto;
+}
+.card-image {
+  width: 100%;
+  height: 360px;
+  object-fit: cover;
+}
+</style>

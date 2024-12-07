@@ -1,6 +1,6 @@
 <template>
   <header id="header">
-    <NuxtLink id="logo" to="/" href="#default">
+    <NuxtLink id="logo" to="/">
       <img src="assets/icons/logo.svg" class="img" alt="Company Logo" />
       <h1 v-if="isDesktop" class="text">Siruć<br />Industries</h1>
     </NuxtLink>

@@ -15,7 +15,7 @@
           brand's digital presence. From beautifully designed websites to powerful applications, our
           team is dedicated to crafting technology that's as refined as it is reliable.
         </p>
-        <ButtonLink text="Get a quote" :circled="true" href="/"></ButtonLink>
+        <ButtonLink text="Get a quote" :circledArrow="true" href="/"></ButtonLink>
       </div>
     </section>
     <h2 class="container welcome-message">Welcome to Siruć Industries</h2>
