@@ -29,27 +29,27 @@
       <hr class="devider" />
       <div class="contact-form-wrapper">
         <BaseInput
+          id="full-name"
           ref="fullNameInput"
           v-model="form.fullName"
-          id="full-name"
           label="Full Name"
           placeholder="John Doe"
         />
         <BaseInput
-          v-model="form.email"
           id="email"
+          v-model="form.email"
           label="Work Email"
           placeholder="john.doe@yourdomain.com"
         />
         <BaseInput
-          v-model="form.companySize"
           id="company-size"
+          v-model="form.companySize"
           label="Company Size"
           placeholder="1-50"
         />
         <BaseTextarea
-          v-model="form.message"
           id="help-message"
+          v-model="form.message"
           label="How can we help?"
           placeholder="I am interested in..."
         />
