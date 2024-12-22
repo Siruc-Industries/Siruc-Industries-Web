@@ -95,6 +95,7 @@ const scrollToTop = () => {
     width: 100%;
     row-gap: 56px;
     font-size: 14px;
+    padding-left: 5px;
 
     .button-block {
       display: flex;

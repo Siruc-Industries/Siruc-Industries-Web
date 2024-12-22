@@ -12,7 +12,7 @@
     </nav>
     <div id="btns">
       <ButtonOutline>Contact</ButtonOutline>
-      <ButtonPrimary>Get a quote</ButtonPrimary>
+      <ButtonPrimary type="basic">Get a quote</ButtonPrimary>
     </div>
   </header>
 </template>

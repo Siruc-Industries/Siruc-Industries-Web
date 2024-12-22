@@ -15,7 +15,7 @@
           brand's digital presence. From beautifully designed websites to powerful applications, our
           team is dedicated to crafting technology that's as refined as it is reliable.
         </p>
-        <ButtonLink text="Get a quote" :circledArrow="true" href="/"></ButtonLink>
+        <ButtonLink text="Get a quote" type="primary" :circledArrow="true" href="/"></ButtonLink>
       </div>
     </section>
     <h2 class="container welcome-message">Welcome to Siruć Industries</h2>
@@ -28,13 +28,6 @@
         :text="card.text"
       />
     </div>
-    <div class="container card-container">
-      <CardPicture
-        :key="1"
-        title="Random title - Complete Application Design & Development"
-        text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam architecto est aliquam harum mollitia blanditiis obcaecati eum maiores in nostrum!"
-      />
-    </div>
     <div class="connect-container">
       <div class="connect-body container">
         <div class="pointer hover-underline" @click="scrollToContact">
@@ -43,8 +36,17 @@
         </div>
       </div>
     </div>
+    <div class="container card-container">
+      <CardPicture
+        :key="1"
+        title="Random title - Complete Application Design & Development"
+        text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam architecto est aliquam harum mollitia blanditiis obcaecati eum maiores in nostrum!"
+      />
+    </div>
     <div ref="contactContainer" class="contact-container">
-      <div class="contact-body container">...</div>
+      <div class="contact-body container">
+        <CommonContactForm></CommonContactForm>
+      </div>
     </div>
   </div>
 </template>
@@ -56,11 +58,11 @@ import CardPicture from '@/components/card/CardPicture.vue';
 
 const list = ['visionary', 'motivated', 'efficient', 'your'];
 const currentIndex = ref(0);
+const contactContainer = ref(null);
 const currentWord = computed(() => list[currentIndex.value]);
 console.log(currentWord.value);
 
 function scrollToContact() {
-  console.log('fires');
   if (contactContainer.value) {
     contactContainer.value.scrollIntoView({
       behavior: 'smooth', // Smooth scrolling animation
