@@ -18,6 +18,29 @@
         <ButtonLink text="Get a quote" type="primary" :circledArrow="true" href="/"></ButtonLink>
       </div>
     </section>
+    <div class="welcome-wrapper">
+      <h2 class="container welcome-title">
+        Comprehensive Digital Solutions <br />
+        for <span class="subtext">Every Ambition</span>
+      </h2>
+      <div class="container card-container">
+        <CardLink
+          :id="1"
+          :title="'Software Stuff Augmentaion'"
+          text="We scale your team with essential personnel your development team needs."
+        ></CardLink>
+        <CardLink
+          :id="1"
+          :title="'Software Stuff Augmentaion'"
+          text="We scale your team with essential personnel your development team needs."
+        ></CardLink>
+        <CardLink
+          :id="1"
+          :title="'Software Stuff Augmentaion'"
+          text="We scale your team with essential personnel your development team needs."
+        ></CardLink>
+      </div>
+    </div>
     <h2 class="container welcome-message">Welcome to Siruć Industries</h2>
     <div class="container card-container">
       <CardInfo
@@ -204,5 +227,22 @@ canvas {
 .welcome-message {
   font-size: 32px;
   color: var(--el-color-text);
+}
+
+.welcome-wrapper {
+  padding: 0 0 220px 0;
+}
+
+.welcome-title {
+  font-size: 36px;
+  color: var(--el-color-text);
+  text-align: center;
+  font-weight: 500;
+  padding-bottom: 24px;
+
+  .subtext {
+    color: var(--el-color-orange);
+    font-weight: 500;
+  }
 }
 </style>

@@ -34,7 +34,7 @@ defineProps({
   },
   type: {
     type: String as PropType<'basic' | 'primary'>,
-    required: true,
+    default: 'basic',
   },
   text: {
     type: String,
