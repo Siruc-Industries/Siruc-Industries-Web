@@ -1,16 +1,22 @@
 <template>
-  <div class="card">
-    <div class="img-holder">
-      <img class="card-img" src="~/assets/imgs/placeholder.png" />
+  <NuxtLink :to="`/blog/${id}`">
+    <div class="card">
+      <div class="img-holder">
+        <img class="card-img" src="~/assets/imgs/placeholder.png" />
+      </div>
+      <div class="content">
+        <h2 class="title">{{ title }}</h2>
+        <div class="info-container">
+          <div class="row">
+            <span v-for="(tab, idx) in tabs" :key="idx" :class="['tab', idx === 0 ? 'main' : '']">
+              {{ tab }}
+            </span>
+          </div>
+        </div>
+        <p class="text">{{ text }}</p>
+      </div>
     </div>
-    <div class="content">
-      <h2 class="title">{{ title }}</h2>
-      <p class="text">{{ text }}</p>
-    </div>
-    <div>
-      <Button href="/blog" :circledArrow="true" text="Learn More" />
-    </div>
-  </div>
+  </NuxtLink>
 </template>
 
 <style scoped lang="scss">
@@ -37,28 +43,48 @@
 .content {
   margin-bottom: 12px;
   .title {
-    margin-bottom: 8px;
-    line-height: 25px;
-    font-weight: 300;
+    margin-bottom: 12px;
+    line-height: 2rem;
+    font-weight: 500;
   }
   .text {
-    line-height: 20px;
+    line-height: 21px;
+    font-size: 0.875rem;
     font-weight: 300;
+  }
+
+  .row {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .tab {
+    background-color: #00000021;
+    border-radius: 30px;
+    font-size: 11px;
+    font-weight: 400;
+    padding: 4px 8px;
+  }
+
+  .tab.main {
+    background-color: #622f31;
   }
 }
 </style>
 
-<script>
-export default {
-  props: {
-    title: {
-      type: String,
-      required: true,
-    },
-    text: {
-      type: String,
-      required: true,
-    },
+<script setup lang="ts">
+const tabs = ref(['lorem ipsum', 'lorem ipsum', 'lorem ipsum']);
+
+defineProps({
+  title: {
+    type: String,
+    required: true,
   },
-};
+  text: {
+    type: String,
+    required: true,
+  },
+});
 </script>

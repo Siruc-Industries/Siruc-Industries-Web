@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container spacing">
     <h1>Blog goes here</h1>
     <div class="card-container">
       <CardBlog

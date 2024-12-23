@@ -13,7 +13,7 @@
       <div class="content">
         <div class="info-container">
           <div class="row">
-            <span v-for="(tab, idx) in labs" :key="idx" class="tab">
+            <span v-for="(tab, idx) in tabs" :key="idx" class="tab">
               {{ tab }}
             </span>
           </div>
@@ -135,7 +135,7 @@ const props = defineProps({
   },
 });
 
-const labs = ref(['Tab 1', 'Tab 2']);
+const tabs = ref(['Tab 1', 'Tab 2']);
 
 const formattedDate = computed(() => {
   if (!props.createdAt) return '---';

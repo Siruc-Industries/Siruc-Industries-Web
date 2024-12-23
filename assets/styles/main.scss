@@ -89,6 +89,10 @@ a {
   margin: 0 auto;
 }
 
+.container.spacing {
+  padding: 60px 0 180px 0;
+}
+
 .card-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* Three columns */

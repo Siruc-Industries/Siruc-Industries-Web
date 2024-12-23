@@ -41,6 +41,16 @@
         ></CardLink>
       </div>
     </div>
+
+    <div class="connect-container">
+      <div class="connect-body container">
+        <div class="pointer hover-underline" @click="scrollToContact">
+          <h3 class="invite">Let's talk about your project!</h3>
+          <img src="assets/icons/arrow-right.svg" class="arrow-img" alt="Arrow right" />
+        </div>
+      </div>
+    </div>
+
     <h2 class="container welcome-message">Welcome to Siruć Industries</h2>
     <div class="container card-container">
       <CardInfo
@@ -51,21 +61,7 @@
         :text="card.text"
       />
     </div>
-    <div class="connect-container">
-      <div class="connect-body container">
-        <div class="pointer hover-underline" @click="scrollToContact">
-          <h3 class="invite">Let's talk about your project!</h3>
-          <img src="assets/icons/arrow-right.svg" class="arrow-img" alt="Arrow right" />
-        </div>
-      </div>
-    </div>
-    <div class="container card-container">
-      <CardPicture
-        :key="1"
-        title="Random title - Complete Application Design & Development"
-        text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam architecto est aliquam harum mollitia blanditiis obcaecati eum maiores in nostrum!"
-      />
-    </div>
+
     <div ref="contactContainer" class="contact-container">
       <div class="contact-body container">
         <CommonContactForm></CommonContactForm>
@@ -77,7 +73,6 @@
 <script setup>
 import { ref, computed } from 'vue';
 import CardInfo from '@/components/card/CardInfo.vue';
-import CardPicture from '@/components/card/CardPicture.vue';
 
 const list = ['visionary', 'motivated', 'efficient', 'your'];
 const currentIndex = ref(0);
@@ -157,6 +152,7 @@ canvas {
 .connect {
   &-container {
     background-color: #222224;
+    margin-bottom: 160px;
   }
   &-body {
     padding: 72px 0;
@@ -230,7 +226,7 @@ canvas {
 }
 
 .welcome-wrapper {
-  padding: 0 0 220px 0;
+  padding: 0 0 160px 0;
 }
 
 .welcome-title {
