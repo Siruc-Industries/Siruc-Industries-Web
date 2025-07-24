@@ -154,7 +154,7 @@ const submitForm = () => {
   .contact-form {
     flex: 1;
     max-width: 500px;
-    background-color: #222224;
+    background-color: var(--el-color-bg);
     border: 1px solid var(--el-color-input-border);
     border-radius: 8px;
     padding: 1rem;

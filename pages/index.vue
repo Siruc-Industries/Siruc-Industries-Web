@@ -15,7 +15,9 @@
           brand's digital presence. From beautifully designed websites to powerful applications, our
           team is dedicated to crafting technology that's as refined as it is reliable.
         </p>
-        <ButtonLink text="Get a quote" type="primary" :circledArrow="true" href="/"></ButtonLink>
+        <div @click="scrollToContact">
+          <ButtonLink text="Get a quote" type="primary" :circledArrow="true" href="/"> </ButtonLink>
+        </div>
       </div>
     </section>
     <div class="welcome-wrapper">

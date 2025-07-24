@@ -133,9 +133,11 @@ const props = defineProps({
     type: String,
     required: false,
   },
+  tabs: {
+    type: Array,
+    required: false,
+  },
 });
-
-const tabs = ref(['Tab 1', 'Tab 2']);
 
 const formattedDate = computed(() => {
   if (!props.createdAt) return '---';
