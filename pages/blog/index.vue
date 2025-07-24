@@ -6,6 +6,7 @@
         v-for="(article, index) in articles"
         :id="article.id"
         :key="article.id"
+        :tabs="article.tabs ? article.tabs : ['Tab 1', 'Tab 2']"
         :index="index + 1"
         :image="article.image"
         :title="article.title"

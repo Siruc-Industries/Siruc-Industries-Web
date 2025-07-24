@@ -1,7 +1,7 @@
 <template>
   <div class="blog-container">
     <h1>{{ article.title }}</h1>
-    <p>{{ article.text }}</p>
+    <div v-html="sanitizedContent" class="article-content"></div>
     <img
       v-if="article.image"
       :src="`http://localhost:5000${article.image}`"
@@ -14,12 +14,17 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { fetchArticle } from '~/services/api/articles';
+import DOMPurify from 'dompurify';
 
 const route = useRoute();
 const article = ref({});
+
+const sanitizedContent = computed(() => {
+  return article.value?.text ? DOMPurify.sanitize(article.value.text) : '';
+});
 
 const loadArticle = async id => {
   try {
