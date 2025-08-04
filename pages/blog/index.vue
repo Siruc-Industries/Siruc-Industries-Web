@@ -1,7 +1,7 @@
 <template>
   <div class="container spacing">
     <h1>Blog goes here</h1>
-    <div class="card-container">
+    <div v-loading="isLoading" class="card-container">
       <CardBlog
         v-for="(article, index) in articles"
         :id="article.id"
@@ -20,15 +20,30 @@
 import { ref, onMounted } from 'vue';
 import CardBlog from '~/components/card/CardBlog.vue';
 import { fetchArticles } from '~/services/api/articles';
+import { ElLoading, ElMessage } from 'element-plus';
 
 const articles = ref([]);
 
 const loadArticles = async () => {
+  const fullScreenLoading = ElLoading.service({
+    lock: true,
+    background: 'rgba(0, 0, 0, 0.7)',
+  });
+
   try {
     articles.value = await fetchArticles();
   } catch (error) {
+    ElMessage({
+      message: 'Failed to load blog articles',
+      type: 'error',
+      plain: true,
+      showClose: true,
+      grouping: true,
+    });
     console.error('Failed to load articles.');
     console.error(error);
+  } finally {
+    fullScreenLoading.close();
   }
 };
 

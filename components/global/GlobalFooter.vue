@@ -2,10 +2,23 @@
   <footer class="footer">
     <div class="footer-container">
       <div class="footer-body">
-        <NuxtLink id="logo" to="/">
-          <img src="assets/icons/logo.svg" class="img" alt="Company Logo" />
-          <h1 class="text">Siruć<br />Industries</h1>
-        </NuxtLink>
+        <client-only>
+          <NuxtLink v-if="isDesktop" id="logo" to="/">
+            <img src="assets/icons/logo.svg" class="img" alt="Company Logo" />
+            <h1 class="text">Siruć<br />Industries</h1>
+          </NuxtLink>
+          <NuxtLink v-if="isMobile" id="logo" to="/">
+            <div class="mobile-logo-container">
+              <div>
+                <img src="assets/icons/logo.svg" class="img" alt="Company Logo" />
+                <h1 class="text">Siruć<br />Industries</h1>
+              </div>
+              <button class="jump-up" @click="scrollToTop">
+                <img src="assets/icons/arrow-up-light.svg" class="icon icon-simple" alt="Up" />
+              </button>
+            </div>
+          </NuxtLink>
+        </client-only>
         <div class="contact-block">
           <h4 class="title">Contact us</h4>
           <p class="text">hello@sirucindustries.com</p>
@@ -14,11 +27,13 @@
           <h4 class="title">Contact us</h4>
           <p class="text">hello@sirucindustries.com</p>
         </div>
-        <div class="button-block">
-          <button class="jump-up" @click="scrollToTop">
-            <img src="assets/icons/arrow-up-light.svg" class="icon icon-simple" alt="Up" />
-          </button>
-        </div>
+        <client-only>
+          <div v-if="isDesktop" class="button-block">
+            <button class="jump-up" @click="scrollToTop">
+              <img src="assets/icons/arrow-up-light.svg" class="icon icon-simple" alt="Up" />
+            </button>
+          </div>
+        </client-only>
         <div class="navigation">
           <NuxtLink to="/services" active-class="active" class="link"> Services </NuxtLink>
           <span>/</span>
@@ -51,6 +66,10 @@
   </footer>
 </template>
 <script setup lang="ts">
+import { useBreakpoints } from '@/composables/useBreakpoints';
+
+const { isMobile, isDesktop } = useBreakpoints();
+
 const scrollToTop = () => {
   const duration = 600;
   const startPosition = window.scrollY;
@@ -222,5 +241,24 @@ const scrollToTop = () => {
       font-weight: 300;
     }
   }
+}
+
+@media screen and (max-width: 580px) {
+  .footer-body {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+    .rights-block {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-end;
+    }
+  }
+}
+
+.mobile-logo-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 </style>

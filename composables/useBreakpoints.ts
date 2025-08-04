@@ -1,15 +1,16 @@
 import { ref, computed, onMounted, onUnmounted } from 'vue';
 
 export function useBreakpoints() {
-  const width = ref(window?.innerWidth);
+  const width = ref(typeof window !== 'undefined' ? window.innerWidth : 1024);
 
   const onResize = () => {
-    width.value = window?.innerWidth;
+    width.value = window.outerWidth;
   };
 
   onMounted(() => {
     window.addEventListener('resize', onResize);
-    console.log('width: ', width.value)
+    console.log('width: ', width.value);
+    onResize();
   });
 
   onUnmounted(() => {

@@ -103,6 +103,12 @@ const submitForm = () => {
 </script>
 
 <style scoped lang="scss">
+@media screen and (max-width: 580px) {
+  .contact-us-container {
+    display: flex;
+    flex-direction: column;
+  }
+}
 .contact-us-container {
   display: flex;
   justify-content: space-between;
