@@ -33,6 +33,11 @@
   --el-color-link: #2e3033;
 }
 
+/* Override the SVG stroke color for the spinner */
+circle.path {
+  stroke: var(--el-color-orange-hover) !important;
+}
+
 @include breakpoints.respond-below(breakpoints.$breakpoint-tablet) {
   :root {
     --font-size: 14px;
@@ -88,6 +93,7 @@ a {
 .container {
   max-width: 1200px;
   margin: 0 auto;
+  height: 100%;
 }
 
 .container.spacing {
@@ -99,6 +105,13 @@ a {
   grid-template-columns: repeat(3, 1fr); /* Three columns */
   gap: 20px;
   padding: 16px 0;
+}
+
+.loading-conainer {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  align-items: center;
 }
 
 // Underline appear from left to right on hover
@@ -120,4 +133,9 @@ a {
   &:hover::after {
     width: 100%; /* Full width on hover */
   }
+}
+
+// bg color of toast message
+div.el-message {
+  background-color: var(--el-color-bg) !important;
 }
