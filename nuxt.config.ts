@@ -16,6 +16,12 @@ export default defineNuxtConfig({
         { property: 'og:image', content: ' !add https image !' },
       ],
       link: [{ rel: 'icon', type: 'image/png', href: '/favicon.png' }],
+      script: [
+        {
+          type: 'module',
+          src: 'https://unpkg.com/@splinetool/viewer@1.10.44/build/spline-viewer.js'
+        }
+      ],
     },
   },
   vite: {

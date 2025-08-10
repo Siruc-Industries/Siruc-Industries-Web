@@ -1,7 +1,10 @@
 <template>
   <div>
-    <section class="container section-container">
-      <div class="section-body">
+    <section class="hero-section">
+      <div class="hero-background">
+        <spline-viewer url="https://prod.spline.design/u1pq0QlF82PQYHu2/scene.splinecode"></spline-viewer>
+      </div>
+      <div class="hero-content">
         <h1 class="greeting-title">
           Bespoke software <br />
           solutions for <br />
@@ -180,10 +183,64 @@ canvas {
   }
 }
 
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
+}
+
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  
+  spline-viewer {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+}
+
+.hero-content {
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  transform: translateY(-50%);
+  z-index: 2;
+  max-width: 596px;
+  padding: 40px;
+  
+  .greeting {
+    &-title {
+      font-size: 64px;
+      margin-bottom: 24px;
+      line-height: 76px;
+      position: relative;
+      color: white;
+    }
+    &-text {
+      line-height: 20px;
+      margin-bottom: 24px;
+      color: rgba(255, 255, 255, 0.9);
+    }
+  }
+}
+
 .section {
   &-container {
     padding: 280px 0;
     color: var(--el-color-text);
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
   }
 
   &-body {
@@ -199,6 +256,24 @@ canvas {
         line-height: 20px;
         margin-bottom: 24px;
       }
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .hero-content {
+    max-width: 100%;
+    padding: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-content {
+    padding: 20px;
+    
+    .greeting-title {
+      font-size: 48px;
+      line-height: 56px;
     }
   }
 }
