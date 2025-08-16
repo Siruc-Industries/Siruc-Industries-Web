@@ -11,6 +11,9 @@
         <img v-else class="card-img" src="~/assets/imgs/placeholder.png" />
       </div>
       <div class="content">
+        <div class="title-container">
+          <h2 class="title">{{ title }}</h2>
+        </div>
         <div class="info-container">
           <div class="row">
             <span v-for="(tab, idx) in tabs" :key="idx" class="tab">
@@ -18,9 +21,6 @@
             </span>
           </div>
           <p class="date">{{ formattedDate }}</p>
-        </div>
-        <div class="title-container">
-          <h2 class="title">{{ title }}</h2>
         </div>
       </div>
     </div>
@@ -113,7 +113,7 @@
 </style>
 
 <script setup>
-import { computed, defineProps, ref } from 'vue';
+import { computed, defineProps } from 'vue';
 
 // Define props for the component
 const props = defineProps({
