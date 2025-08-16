@@ -1,26 +1,26 @@
 <template>
-  <div v-if="article" class="blog-container">
-    <div :class="article.image ? 'image-bg' : ''">
-      <h1 class="title">{{ article.title }}</h1>
+  <div v-if="project" class="project-container">
+    <div :class="project.image ? 'image-bg' : ''">
+      <h1 class="title">{{ project.title }}</h1>
     </div>
     <img
-      v-if="article.image"
-      :src="`http://localhost:5000${article.image}`"
-      alt="Article image"
+      v-if="project.image"
+      :src="`http://localhost:5000${project.image}`"
+      alt="Project image"
       class="card-image"
     />
-    <em v-if="article.imageDescription">{{ article.imageDescription }}</em>
-    <div v-if="article.tabs" class="row margin">
-      <span v-for="(tab, idx) in article.tabs" :key="idx" class="tab">
+    <em v-if="project.imageDescription">{{ project.imageDescription }}</em>
+    <div v-if="project.tabs" class="row margin">
+      <span v-for="(tab, idx) in project.tabs" :key="idx" class="tab">
         {{ tab }}
       </span>
     </div>
-    <div v-html="sanitizedContent" class="article-content"></div>
+    <div v-html="sanitizedContent" class="project-content"></div>
     <div class="margin">
-      <p v-if="article.author">Author: {{ article.author }}</p>
+      <p v-if="project.author">Author: {{ project.author }}</p>
       <div class="publish-content">
         <el-icon class="icon-color"><Calendar /></el-icon>
-        <p>Published on: {{ article.createdAt }}</p>
+        <p>Published on: {{ project.createdAt }}</p>
       </div>
     </div>
   </div>
@@ -29,27 +29,27 @@
 <script setup>
 import { onMounted, ref, computed } from 'vue';
 import { useRoute } from 'vue-router';
-import { fetchArticle } from '~/services/api/articles';
+import { fetchProject } from '~/services/api/projects';
 import DOMPurify from 'dompurify';
 import { ElLoading } from 'element-plus';
 
 const route = useRoute();
-const article = ref(null);
+const project = ref(null);
 
 const sanitizedContent = computed(() => {
-  return article.value?.text ? DOMPurify.sanitize(article.value.text) : '';
+  return project.value?.text ? DOMPurify.sanitize(project.value.text) : '';
 });
 
-const loadArticle = async id => {
+const loadProject = async id => {
   const fullScreenLoading = ElLoading.service({
     lock: true,
     background: 'rgba(0, 0, 0, 0.7)',
   });
 
   try {
-    article.value = await fetchArticle(id);
+    project.value = await fetchProject(id);
   } catch (error) {
-    console.error('Failed to load article.');
+    console.error('Failed to load project.');
     console.error(error);
   } finally {
     fullScreenLoading.close();
@@ -58,7 +58,7 @@ const loadArticle = async id => {
 
 onMounted(() => {
   const id = route.params.id;
-  loadArticle(id);
+  loadProject(id);
 });
 </script>
 
@@ -68,7 +68,7 @@ onMounted(() => {
   margin: 1rem 0;
 }
 
-.blog-container {
+.project-container {
   max-width: 636px;
   margin: 0 auto;
 }
@@ -99,11 +99,11 @@ onMounted(() => {
   color: var(--el-color-text);
 }
 
-.article-content {
+.project-content {
   margin: 1rem 0;
 }
 
-.article-content :deep(img) {
+.project-content :deep(img) {
   max-height: 25rem;
   width: 100%;
   object-fit: fill;
