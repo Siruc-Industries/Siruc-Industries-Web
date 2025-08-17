@@ -1,43 +1,29 @@
 <template>
   <client-only>
-    <header v-if="isMobile" id="mobileHeader">
-      <NuxtLink id="logo" to="/">
-        <img src="assets/icons/logo.svg" class="img" alt="Company Logo" />
-      </NuxtLink>
-      <button class="burger" @click="drawerVisible = true">
-        <svg width="32" height="32" viewBox="0 0 32 32">
-          <rect y="6" width="32" height="4" rx="2" />
-          <rect y="14" width="32" height="4" rx="2" />
-          <rect y="22" width="32" height="4" rx="2" />
-        </svg>
-      </button>
-      <el-drawer
-        v-model="drawerVisible"
-        direction="rtl"
-        size="80vw"
-        :with-header="false"
-        custom-class="mobile-drawer"
-      >
-        <div class="drawer-content">
-          <button class="drawer-close" @click="drawerVisible = false">
+    <div v-if="isMobile">
+      <header id="mobileHeader">
+        <div class="mobileHeader-main">
+          <NuxtLink id="logo" to="/">
+            <img src="assets/icons/logo.svg" class="img" alt="Company Logo" />
+          </NuxtLink>
+          <button class="burger" @click="drawerClick">
             <svg width="32" height="32" viewBox="0 0 32 32">
-              <line x1="8" y1="8" x2="24" y2="24" stroke="currentColor" stroke-width="3" />
-              <line x1="24" y1="8" x2="8" y2="24" stroke="currentColor" stroke-width="3" />
+              <rect y="6" width="32" height="4" rx="2" />
+              <rect y="14" width="32" height="4" rx="2" />
+              <rect y="22" width="32" height="4" rx="2" />
             </svg>
           </button>
-          <NuxtLink to="/services" class="drawer-link" @click="drawerVisible = false">
-            Services
-          </NuxtLink>
-          <NuxtLink to="/projects" class="drawer-link" @click="drawerVisible = false">
-            Projects
-          </NuxtLink>
-          <NuxtLink to="/company" class="drawer-link" @click="drawerVisible = false">
-            Company
-          </NuxtLink>
-          <NuxtLink to="/blog" class="drawer-link" @click="drawerVisible = false">Blog</NuxtLink>
         </div>
-      </el-drawer>
-    </header>
+        <div v-if="drawerVisible" class="extendedMenu">
+          <div class="drawer-content">
+            <NuxtLink to="/services" class="drawer-link" @click="drawerClose"> Services </NuxtLink>
+            <NuxtLink to="/projects" class="drawer-link" @click="drawerClose"> Projects </NuxtLink>
+            <NuxtLink to="/company" class="drawer-link" @click="drawerClose"> Company </NuxtLink>
+            <NuxtLink to="/blog" class="drawer-link" @click="drawerClose">Blog</NuxtLink>
+          </div>
+        </div>
+      </header>
+    </div>
     <header v-else id="header">
       <NuxtLink id="logo" to="/">
         <img src="assets/icons/logo.svg" class="img" alt="Company Logo" />
@@ -60,7 +46,6 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 import { useBreakpoints } from '@/composables/useBreakpoints';
-import { ElDrawer } from 'element-plus';
 
 const { isMobile, isDesktop } = useBreakpoints();
 const drawerVisible = ref(false);
@@ -68,6 +53,7 @@ console.log(isMobile.value);
 
 const scrollFunction = () => {
   const header = document.getElementById('header');
+  const mobileHeader = document.getElementById('mobileHeader');
   if (header) {
     if (document.body.scrollTop > 0 || document.documentElement.scrollTop > 0) {
       header.classList.add('scrolled-down', 'blurred');
@@ -75,6 +61,28 @@ const scrollFunction = () => {
       header.classList.remove('scrolled-down', 'blurred');
     }
   }
+  if (mobileHeader) {
+    if (document.body.scrollTop > 0 || document.documentElement.scrollTop > 0) {
+      mobileHeader.classList.add('blurred');
+    } else {
+      mobileHeader.classList.remove('blurred');
+    }
+  }
+};
+
+const drawerClick = () => {
+  drawerVisible.value = !drawerVisible.value;
+
+  if (drawerVisible.value) {
+    mobileHeader.classList.add('extended');
+  } else {
+    mobileHeader.classList.remove('extended');
+  }
+};
+
+const drawerClose = () => {
+  drawerVisible.value = false;
+  mobileHeader.classList.remove('extended');
 };
 
 onMounted(() => {
@@ -87,23 +95,40 @@ onBeforeUnmount(() => {
 
 <style scoped lang="scss">
 #mobileHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   background: var(--el-color-bg);
   color: var(--el-color-text);
-  padding: 0 16px;
   height: 56px;
-  width: 100vw;
+  transition: 0.2s;
   position: fixed;
   top: 0;
   left: 0;
+  right: 0;
   z-index: 1000;
   border-bottom: 1px solid var(--el-color-line);
 }
+
+#mobileHeader.extended {
+  height: 226px;
+}
+
+.mobileHeader-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  height: 56px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
 #mobileHeader #logo {
   display: flex;
   align-items: center;
+  position: initial;
   .img {
     height: 38px;
     width: 38px;
@@ -116,6 +141,10 @@ onBeforeUnmount(() => {
   cursor: pointer;
   display: flex;
   align-items: center;
+
+  svg {
+    fill: var(--el-color-text);
+  }
 }
 .el-drawer {
   background: var(--el-color-bg);
@@ -125,13 +154,7 @@ onBeforeUnmount(() => {
   &__body {
     background: var(--el-color-bg);
   }
-  .drawer-content {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    padding: 24px 16px 0 16px;
-    position: relative;
-  }
+
   .drawer-close {
     background: none;
     border: none;
@@ -140,6 +163,10 @@ onBeforeUnmount(() => {
     right: 8px;
     cursor: pointer;
     z-index: 10;
+
+    svg {
+      fill: var(--el-color-text);
+    }
   }
   .drawer-link {
     font-size: 1.2rem;
@@ -152,6 +179,36 @@ onBeforeUnmount(() => {
     &:hover {
       background: var(--el-color-secondary);
     }
+  }
+}
+
+.extendedMenu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--el-color-text);
+  padding: 16px 22px;
+  transition: 0.2s;
+  height: 170px;
+  width: 100%;
+  position: fixed;
+  top: 56px;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  border-bottom: 1px solid var(--el-color-line);
+}
+
+.drawer-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 16px;
+  position: relative;
+  transition: 0.2s;
+
+  a {
+    transition: 0.2s;
   }
 }
 
@@ -171,7 +228,9 @@ onBeforeUnmount(() => {
   border-bottom: 1px solid var(--el-color-line);
 }
 
-#header.blurred {
+#header.blurred,
+#mobileHeader.blurred,
+#mobileHeader.extended.blurred {
   background: rgba(44, 44, 46, 0.5);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--el-color-line);
