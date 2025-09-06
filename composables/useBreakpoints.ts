@@ -4,7 +4,7 @@ export function useBreakpoints() {
   const width = ref(typeof window !== 'undefined' ? window.innerWidth : 1024);
 
   const onResize = () => {
-    width.value = window.outerWidth;
+    width.value = window.innerWidth;
   };
 
   onMounted(() => {
@@ -19,7 +19,8 @@ export function useBreakpoints() {
 
   const isMobile = computed(() => width.value <= 480);
   const isTablet = computed(() => width.value > 480 && width.value <= 768);
+  const isMobileTablet = computed(() => width.value <= 768);
   const isDesktop = computed(() => width.value > 768);
 
-  return { isMobile, isTablet, isDesktop };
+  return { isMobile, isTablet, isMobileTablet, isDesktop };
 }

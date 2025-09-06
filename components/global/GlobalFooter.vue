@@ -39,10 +39,10 @@
           <span>/</span>
           <NuxtLink to="/projects" active-class="active" class="link"> Projects </NuxtLink>
           <span>/</span>
-          <NuxtLink to="/company" active-class="active" class="link"> Company </NuxtLink>
-          <span>/</span>
-          <NuxtLink to="/about-us" active-class="active" class="link"> About us </NuxtLink>
-          <span>/</span>
+          <!-- <NuxtLink to="/company" active-class="active" class="link"> Company </NuxtLink>
+          <span>/</span> -->
+          <!-- <NuxtLink to="/about-us" active-class="active" class="link"> About us </NuxtLink>
+          <span>/</span> -->
           <NuxtLink to="/blog" active-class="active" class="link"> Blog </NuxtLink>
         </div>
         <div class="contact-block">
@@ -243,7 +243,7 @@ const scrollToTop = () => {
   }
 }
 
-@media screen and (max-width: 580px) {
+@media screen and (max-width: 920px) {
   .footer-body {
     display: flex;
     flex-direction: column;

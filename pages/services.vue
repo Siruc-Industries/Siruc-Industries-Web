@@ -24,7 +24,7 @@
           <!-- Logos Section -->
           <div class="logos-wrapper">
             <!-- First Row -->
-            <div class="logos-row scroll-left">
+            <div class="logos-row">
               <img src="~/assets/icons/logos/gdm-logo.svg" alt="GDM Logo" class="logo" />
               <img src="~/assets/icons/logos/fiestro-logo.svg" alt="Fiestro Logo" class="logo" />
               <img src="~/assets/icons/logos/gdm-logo.svg" alt="GDM Logo" class="logo" />
@@ -35,7 +35,7 @@
             </div>
 
             <!-- Second Row -->
-            <div class="logos-row scroll-right">
+            <div class="logos-row">
               <img src="~/assets/icons/logos/fiestro-logo.svg" alt="Fiestro Logo" class="logo" />
               <img src="~/assets/icons/logos/gdm-logo.svg" alt="GDM Logo" class="logo" />
               <img src="~/assets/icons/logos/fiestro-logo.svg" alt="Fiestro Logo" class="logo" />
@@ -46,11 +46,35 @@
             </div>
 
             <!-- Third Row -->
-            <div class="logos-row scroll-left">
+            <div class="logos-row">
               <img src="~/assets/icons/logos/gdm-logo.svg" alt="GDM Logo" class="logo" />
               <img src="~/assets/icons/logos/fiestro-logo.svg" alt="Fiestro Logo" class="logo" />
               <img src="~/assets/icons/logos/gdm-logo.svg" alt="GDM Logo" class="logo" />
               <img src="~/assets/icons/logos/fiestro-logo.svg" alt="Fiestro Logo" class="logo" />
+              <img src="~/assets/icons/logos/gdm-logo.svg" alt="GDM Logo" class="logo" />
+              <img src="~/assets/icons/logos/fiestro-logo.svg" alt="Fiestro Logo" class="logo" />
+              <img src="~/assets/icons/logos/gdm-logo.svg" alt="GDM Logo" class="logo" />
+            </div>
+          </div>
+        </div>
+        <div class="logos-mobile">
+          <div class="logos-mobile-wrapper">
+            <!-- First Row -->
+            <div class="logos-mobile-row">
+              <img src="~/assets/icons/logos/gdm-logo.svg" alt="GDM Logo" class="logo" />
+              <img src="~/assets/icons/logos/fiestro-logo.svg" alt="Fiestro Logo" class="logo" />
+              <img src="~/assets/icons/logos/gdm-logo.svg" alt="GDM Logo" class="logo" />
+            </div>
+
+            <!-- Second Row -->
+            <div class="logos-mobile-row">
+              <img src="~/assets/icons/logos/fiestro-logo.svg" alt="Fiestro Logo" class="logo" />
+              <img src="~/assets/icons/logos/gdm-logo.svg" alt="GDM Logo" class="logo" />
+              <img src="~/assets/icons/logos/fiestro-logo.svg" alt="Fiestro Logo" class="logo" />
+            </div>
+
+            <!-- Third Row -->
+            <div class="logos-mobile-row">
               <img src="~/assets/icons/logos/gdm-logo.svg" alt="GDM Logo" class="logo" />
               <img src="~/assets/icons/logos/fiestro-logo.svg" alt="Fiestro Logo" class="logo" />
               <img src="~/assets/icons/logos/gdm-logo.svg" alt="GDM Logo" class="logo" />
@@ -110,24 +134,57 @@
         color: var(--el-color-border);
       }
     }
+  }
+}
 
-    .logos {
-      &-wrapper {
-        display: flex;
-        flex-direction: column;
-        gap: 30px;
-      }
+.logos {
+  display: none;
+}
 
-      &-row {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
+.logos-mobile {
+  display: block;
 
-      .logo {
-        width: 100px;
-        height: 32px;
-      }
+  &-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  &-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .logo {
+    width: 100px;
+    height: 32px;
+  }
+}
+
+@media screen and (min-width: 840px) {
+  .logos {
+    display: block;
+
+    &-mobile {
+      display: none;
+    }
+
+    &-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    &-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo {
+      width: 100px;
+      height: 32px;
     }
   }
 }

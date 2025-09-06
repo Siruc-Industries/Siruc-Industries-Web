@@ -71,7 +71,9 @@ onMounted(() => {
 .blog-container {
   max-width: 636px;
   margin: 0 auto;
+  padding: 0 16px;
 }
+
 .card-image {
   width: 100%;
   height: 360px;
