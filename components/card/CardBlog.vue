@@ -1,5 +1,5 @@
 <template>
-  <NuxtLink :to="`/blog/${id}`">
+  <NuxtLink :to="`/blog/${id}`" class="parent-link">
     <div class="card">
       <div class="img-holder">
         <img
@@ -28,6 +28,10 @@
 </template>
 
 <style scoped lang="scss">
+.parent-link {
+  width: 100%;
+}
+
 .card {
   display: flex;
   flex-direction: column;
@@ -44,6 +48,7 @@
 
 .img-holder {
   height: 240px;
+  height: 100%;
   overflow: hidden;
   max-width: inherit;
 }
@@ -51,6 +56,7 @@
 .card-img {
   max-height: 240px;
   width: 100%;
+  height: 100%;
   object-fit: cover;
   transition: transform 0.3s ease;
   border-top-left-radius: 8px;
@@ -87,6 +93,7 @@
       display: flex;
       flex-direction: row;
       gap: 12px;
+      align-items: center;
     }
 
     .tab {

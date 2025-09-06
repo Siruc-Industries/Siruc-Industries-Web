@@ -1,5 +1,5 @@
 <template>
-  <button @click="toggleTheme" class="theme-switcher">
+  <button class="theme-switcher" @click="toggleTheme">
     <img v-if="isDarkMode" src="assets/icons/dark-mode.svg" class="img" alt="Dark Mode" />
     <img v-else src="assets/icons/light-mode.svg" class="img" alt="Light Mode" />
   </button>
@@ -8,7 +8,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 
-const isDarkMode = ref(false);
+const isDarkMode = ref(true);
 
 // Check local storage to apply saved theme on page load
 onMounted(() => {

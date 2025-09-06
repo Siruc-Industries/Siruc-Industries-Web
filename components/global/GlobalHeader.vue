@@ -1,6 +1,6 @@
 <template>
   <client-only>
-    <div v-if="isMobile">
+    <div v-if="isMobileTablet">
       <header id="mobileHeader">
         <div class="mobileHeader-main">
           <NuxtLink id="logo" to="/">
@@ -18,7 +18,7 @@
           <div class="drawer-content">
             <NuxtLink to="/services" class="drawer-link" @click="drawerClose"> Services </NuxtLink>
             <NuxtLink to="/projects" class="drawer-link" @click="drawerClose"> Projects </NuxtLink>
-            <NuxtLink to="/company" class="drawer-link" @click="drawerClose"> Company </NuxtLink>
+            <!-- <NuxtLink to="/company" class="drawer-link" @click="drawerClose"> Company </NuxtLink> -->
             <NuxtLink to="/blog" class="drawer-link" @click="drawerClose">Blog</NuxtLink>
           </div>
         </div>
@@ -32,7 +32,7 @@
       <nav id="navbar">
         <NuxtLink to="/services" active-class="active"> Services </NuxtLink>
         <NuxtLink to="/projects" active-class="active"> Projects </NuxtLink>
-        <NuxtLink to="/company" active-class="active"> Company </NuxtLink>
+        <!-- <NuxtLink to="/company" active-class="active"> Company </NuxtLink> -->
         <NuxtLink to="/blog" active-class="active"> Blog </NuxtLink>
       </nav>
       <div id="btns">
@@ -47,9 +47,9 @@
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 import { useBreakpoints } from '@/composables/useBreakpoints';
 
-const { isMobile, isDesktop } = useBreakpoints();
+const { isMobileTablet, isDesktop } = useBreakpoints();
 const drawerVisible = ref(false);
-console.log(isMobile.value);
+console.log('isTablet/Mobile: ', isMobileTablet.value);
 
 const scrollFunction = () => {
   const header = document.getElementById('header');

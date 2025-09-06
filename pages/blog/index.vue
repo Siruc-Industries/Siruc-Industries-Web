@@ -1,6 +1,13 @@
 <template>
   <div class="container spacing">
-    <h1>Blog goes here</h1>
+    <div class="container-heading">
+      <div class="content">
+        <h1 class="title">Software Technologies Blog</h1>
+        <p class="text">
+          Learn about established patterns and the latest innovations in software development
+        </p>
+      </div>
+    </div>
     <div v-loading="isLoading" class="card-container">
       <CardBlog
         v-for="(article, index) in articles"
@@ -52,4 +59,32 @@ onMounted(() => {
 });
 </script>
 
-<style></style>
+<style scoped lang="scss">
+.container-heading {
+  width: 100%;
+  color: var(--el-color-text);
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    .title {
+      font-size: 2rem;
+      font-weight: 500;
+      color: inherit;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .text {
+      font-size: 1rem;
+      font-weight: 500;
+      color: inherit;
+      margin-bottom: 2.5rem;
+      max-width: 322px;
+    }
+  }
+}
+</style>

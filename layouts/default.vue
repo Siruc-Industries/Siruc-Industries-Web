@@ -7,8 +7,9 @@
       </div>
     </main>
     <aside class="aside">
-      <LineToggleEffect @toggle="toggleLines" />
-      <BaseThemeSwitcher />
+      <!-- To Do: make them properly -->
+      <!-- <LineToggleEffect @toggle="toggleLines" /> -->
+      <!-- <BaseThemeSwitcher /> -->
     </aside>
     <div id="grid-overlay" class="grid-overlay">
       <div v-for="n in 7" :key="n" class="line"></div>
@@ -133,28 +134,28 @@ body.vertical-lines {
 </style>
 
 <script setup lang="ts">
-import LineToggleEffect from '~/components/base/LineToggleEffect.vue';
+// import LineToggleEffect from '~/components/base/LineToggleEffect.vue';
 import { ref } from 'vue';
 
 const isVerticalLines = ref(false);
 
 onMounted(() => {
+  document.body.classList.add('dark-mode');
   isVerticalLines.value = localStorage.getItem('vertical-lines') === 'true';
   document.body.classList.toggle('vertical-lines', isVerticalLines.value);
 });
 
-const toggleLines = () => {
-  // Animated version, delayed for now...
-  // const lines = document.querySelectorAll('.line');
-  // lines.forEach((line, index) => {
-  //   setTimeout(() => {
-  //     line.classList.toggle(isVerticalLines.value ? 'disappear' : 'appear');
-  //   }, index * 100); // Stagger the animation timing
-  // });
-
-  const linesGrid = document.getElementById('grid-overlay');
-  linesGrid?.classList.toggle('disappear');
-  // Toggle the state after triggering animations
-  isVerticalLines.value = !isVerticalLines.value;
-};
+// const toggleLines = () => {
+// Animated version, delayed for now...
+// const lines = document.querySelectorAll('.line');
+// lines.forEach((line, index) => {
+//   setTimeout(() => {
+//     line.classList.toggle(isVerticalLines.value ? 'disappear' : 'appear');
+//   }, index * 100); // Stagger the animation timing
+// });
+// const linesGrid = document.getElementById('grid-overlay');
+// linesGrid?.classList.toggle('disappear');
+// // Toggle the state after triggering animations
+// isVerticalLines.value = !isVerticalLines.value;
+// };
 </script>

@@ -43,6 +43,7 @@
 
 .img-holder {
   height: 360px;
+  height: 100%;
   max-width: inherit;
   overflow: hidden;
 }

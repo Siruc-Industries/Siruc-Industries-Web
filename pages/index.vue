@@ -203,6 +203,15 @@ canvas {
   }
 }
 
+@media screen and (max-width: 640px) {
+  .section {
+    &-container {
+      padding: 160px 0;
+      color: var(--el-color-text);
+    }
+  }
+}
+
 .classifier {
   font-style: italic;
   font-weight: 500;
