@@ -9,16 +9,17 @@
       </div>
     </div>
     <div v-loading="isLoading" class="card-container">
-      <CardBlog
-        v-for="(article, index) in articles"
-        :id="article.id"
-        :key="article.id"
-        :tabs="article.tabs ? article.tabs : []"
-        :index="index + 1"
-        :image="article.image"
-        :title="article.title"
-        :createdAt="article.createdAt"
-      />
+      <div v-for="(article, index) in articles" :key="index">
+        <CardBlog
+          :id="article.id"
+          :key="article.id"
+          :tabs="article.tabs ? article.tabs : []"
+          :index="index + 1"
+          :image="article.image"
+          :title="article.title"
+          :createdAt="article.createdAt"
+        />
+      </div>
     </div>
   </div>
 </template>

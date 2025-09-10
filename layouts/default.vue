@@ -136,6 +136,7 @@ body.vertical-lines {
 <script setup lang="ts">
 // import LineToggleEffect from '~/components/base/LineToggleEffect.vue';
 import { ref } from 'vue';
+// import LineToggleEffect from '~/components/base/LineToggleEffect.vue';
 
 const isVerticalLines = ref(false);
 
@@ -146,16 +147,16 @@ onMounted(() => {
 });
 
 // const toggleLines = () => {
-// Animated version, delayed for now...
-// const lines = document.querySelectorAll('.line');
-// lines.forEach((line, index) => {
-//   setTimeout(() => {
-//     line.classList.toggle(isVerticalLines.value ? 'disappear' : 'appear');
-//   }, index * 100); // Stagger the animation timing
-// });
-// const linesGrid = document.getElementById('grid-overlay');
-// linesGrid?.classList.toggle('disappear');
-// // Toggle the state after triggering animations
-// isVerticalLines.value = !isVerticalLines.value;
+//   // Animated version, delayed for now...
+//   const lines = document.querySelectorAll('.line');
+//   lines.forEach((line, index) => {
+//     setTimeout(() => {
+//       line.classList.toggle(isVerticalLines.value ? 'disappear' : 'appear');
+//     }, index * 100); // Stagger the animation timing
+//   });
+//   const linesGrid = document.getElementById('grid-overlay');
+//   linesGrid?.classList.toggle('disappear');
+//   // Toggle the state after triggering animations
+//   isVerticalLines.value = !isVerticalLines.value;
 // };
 </script>

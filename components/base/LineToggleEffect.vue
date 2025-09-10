@@ -1,5 +1,5 @@
 <template>
-  <button @click="emitToggle" class="line-toggle-button">|||</button>
+  <button class="line-toggle-button" @click="emitToggle">|||</button>
 </template>
 
 <script setup>
