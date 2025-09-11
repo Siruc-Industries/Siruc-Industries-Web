@@ -136,11 +136,11 @@ body.vertical-lines {
 <script setup lang="ts">
 // import LineToggleEffect from '~/components/base/LineToggleEffect.vue';
 import { ref } from 'vue';
-// import LineToggleEffect from '~/components/base/LineToggleEffect.vue';
 
 const isVerticalLines = ref(false);
 
 onMounted(() => {
+  localStorage.setItem('vertical-lines', 'true');
   document.body.classList.add('dark-mode');
   isVerticalLines.value = localStorage.getItem('vertical-lines') === 'true';
   document.body.classList.toggle('vertical-lines', isVerticalLines.value);
