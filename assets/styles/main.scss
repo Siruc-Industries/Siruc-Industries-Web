@@ -1,10 +1,10 @@
 @use './_breakpoints.scss' as breakpoints;
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100..900;1,100..900&display=swap');
 
 :root {
-  --el-color-text: black;
+  --el-color-text: #ffffff;
 
-  --el-color-bg: #f2ebe3; // bone color
+  --el-color-bg: #08090b; // dark background
   --el-color-border: #2d2f32;
   --el-color-line: #2d2f32;
   --el-color-subtext: #4c4c4c;
@@ -20,10 +20,20 @@
 
   --font-size: 16px;
   --app-padding: 40px;
+
+  // Button parameters
+  --button-height: 40px;
+  --button-icon-size: 18px;
+  --button-font-size: 15px;
+  --button-corner-radius: 10px;
+  --button-padding: 0 12px;
+  --button-gap: 6px;
+  --kbd-offset: -6px;
+  --kbd-gap: 6px;
 }
 
 .dark-mode {
-  --el-color-bg: #232426;
+  --el-color-bg: #08090b;
   --el-color-text: white;
   --el-color-border: #f2ebe3; // bone color
   --el-color-subtext: #7b7c7d;
@@ -53,7 +63,7 @@ circle.path {
 }
 
 * {
-  font-family: 'Noto Sans', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 400;
   box-sizing: border-box !important;
 }
@@ -65,7 +75,9 @@ body {
   min-height: 100vh;
   letter-spacing: 0.5px;
   overflow-y: scroll;
+  overflow-x: hidden;
 }
+
 
 .btn {
   padding: 12px 20px !important;
@@ -93,6 +105,7 @@ a {
 .container {
   max-width: 1200px;
   margin: 0 auto;
+  padding: 0 36px;
   height: 100%;
 }
 
@@ -138,4 +151,71 @@ a {
 // bg color of toast message
 div.el-message {
   background-color: var(--el-color-bg) !important;
+}
+
+// Locomotive Scroll styles
+html.has-scroll-smooth {
+  overflow: hidden;
+}
+
+html.has-scroll-dragging {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.has-scroll-smooth body {
+  overflow: hidden;
+}
+
+.has-scroll-smooth [data-scroll-container] {
+  min-height: 100vh;
+}
+
+[data-scroll-direction="horizontal"] [data-scroll-container] {
+  height: 100vh;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+[data-scroll-direction="horizontal"] [data-scroll-section] {
+  display: inline-block;
+  vertical-align: top;
+  white-space: nowrap;
+  height: 100%;
+}
+
+.c-scrollbar {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 11px;
+  height: 100%;
+  transform-origin: center right;
+  transition: transform 0.3s, opacity 0.3s;
+  opacity: 0;
+}
+.c-scrollbar:hover {
+  transform: scaleX(1.45);
+}
+.c-scrollbar.c-scrollbar_show {
+  opacity: 1;
+}
+
+.c-scrollbar_thumb {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: black;
+  opacity: 0.5;
+  width: 7px;
+  border-radius: 10px;
+  margin: 2px;
+  cursor: -webkit-grab;
+  cursor: grab;
+}
+.has-scroll-dragging .c-scrollbar_thumb {
+  cursor: -webkit-grabbing;
+  cursor: grabbing;
 }

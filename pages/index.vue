@@ -1,28 +1,77 @@
 <template>
   <div>
-    <section class="hero-section">
-      <div class="hero-background">
-        <spline-viewer url="https://prod.spline.design/u1pq0QlF82PQYHu2/scene.splinecode"></spline-viewer>
+    <section class="hero-section" data-scroll-section>
+      <div class="spline-background">
+        <div class="spline-container">
+          <spline-viewer url="https://prod.spline.design/a003KKhjX5KeLY8T/scene.splinecode"></spline-viewer>
+        </div>
       </div>
-      <div class="hero-content">
-        <h1 class="greeting-title">
-          Bespoke software <br />
-          solutions for <br />
-          <span id="classifier" class="classifier">
-            {{ currentWord }}
-          </span>
-          brands.
-        </h1>
-        <p class="greeting-text">
-          We specialize in delivering high-quality, custom software solutions that elevate your
-          brand's digital presence. From beautifully designed websites to powerful applications, our
-          team is dedicated to crafting technology that's as refined as it is reliable.
-        </p>
-        <div @click="scrollToContact">
-          <ButtonLink text="Get a quote" type="primary" :circledArrow="true" href="/"> </ButtonLink>
+      <div class="container">
+        <div class="hero-content" data-scroll data-scroll-speed="0.5">
+          <h1 class="greeting-title" data-scroll data-scroll-speed="0.3">
+            Bespoke software solutions for visionary brands.
+          </h1>
+          <p class="greeting-text" data-scroll data-scroll-speed="0.2">
+            We specialize in delivering high-quality, custom software solutions that elevate your
+            brand's digital.
+          </p>
+          <div @click="scrollToContact" data-scroll data-scroll-speed="0.1">
+            <ButtonLink text="Get a quote" type="primary" :circledArrow="true" href="/"> </ButtonLink>
+          </div>
         </div>
       </div>
     </section>
+
+    <!-- Mark following sections as scroll sections to avoid height collapse with Locomotive -->
+    <div class="welcome-wrapper" data-scroll-section>
+      <h2 class="container welcome-title">
+        Comprehensive Digital Solutions <br />
+        for <span class="subtext">Every Ambition</span>
+      </h2>
+      <div class="container card-container">
+        <CardLink
+          :id="1"
+          :title="'Software Stuff Augmentaion'"
+          text="We scale your team with essential personnel your development team needs."
+        ></CardLink>
+        <CardLink
+          :id="1"
+          :title="'Software Stuff Augmentaion'"
+          text="We scale your team with essential personnel your development team needs."
+        ></CardLink>
+        <CardLink
+          :id="1"
+          :title="'Software Stuff Augmentaion'"
+          text="We scale your team with essential personnel your development team needs."
+        ></CardLink>
+      </div>
+    </div>
+
+    <div class="connect-container" data-scroll-section>
+      <div class="connect-body container">
+        <div class="pointer hover-underline" @click="scrollToContact">
+          <h3 class="invite">Let's talk about your project!</h3>
+          <img src="assets/icons/arrow-right.svg" class="arrow-img" alt="Arrow right" />
+        </div>
+      </div>
+    </div>
+
+    <h2 class="container welcome-message" data-scroll-section>Welcome to Siruć Industries</h2>
+    <div class="container card-container" data-scroll-section>
+      <CardInfo
+        v-for="(card, idx) in cards"
+        :key="idx"
+        :index="card.index"
+        :title="card.title"
+        :text="card.text"
+      />
+    </div>
+
+    <div ref="contactContainer" class="contact-container" data-scroll-section>
+      <div class="contact-body container">
+        <CommonContactForm></CommonContactForm>
+      </div>
+    </div>
     <div class="welcome-wrapper">
       <h2 class="container welcome-title">
         Comprehensive Digital Solutions <br />
@@ -187,48 +236,86 @@ canvas {
   position: relative;
   width: 100%;
   height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
   overflow: hidden;
 }
 
-.hero-background {
+.spline-background {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   z-index: 1;
   
-  spline-viewer {
+  .spline-container {
     width: 100%;
     height: 100%;
-    display: block;
+    opacity: 0;
+    animation: fadeInBlur 1.5s ease-out 1.5s forwards;
+    
+    spline-viewer {
+      width: 100%;
+      height: 100%;
+      display: block;
+      pointer-events: none;
+    }
   }
 }
 
 .hero-content {
-  position: absolute;
-  top: 50%;
-  left: 10%;
-  transform: translateY(-50%);
+  position: relative;
   z-index: 2;
-  max-width: 596px;
-  padding: 40px;
+  max-width: 1000px;
+  padding: 200px 0 40px 0;
+  text-align: left;
+  opacity: 0;
+  animation: fadeInFromBlack 1.2s ease-out 0.3s forwards;
   
   .greeting {
     &-title {
       font-size: 64px;
+      font-weight: 500;
+      letter-spacing: -3px;
       margin-bottom: 24px;
-      line-height: 76px;
+      line-height: 64px;
       position: relative;
       color: white;
+      max-width: 800px;
+      opacity: 0;
+      animation: fadeInBlur 1s ease-out 0.6s forwards;
     }
     &-text {
-      line-height: 20px;
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: -0.3px;
+      line-height: 24px;
       margin-bottom: 24px;
-      color: rgba(255, 255, 255, 0.9);
+      color: #838993;
+      max-width: 400px;
+      opacity: 0;
+      animation: fadeInBlur 1s ease-out 0.9s forwards;
+    }
+  }
+  
+  // Custom button styling for hero
+  :deep(.btn) {
+    background-color: white !important;
+    border-color: white !important;
+    gap: 8px !important;
+    opacity: 0;
+    animation: fadeInBlur 1s ease-out 1.2s forwards;
+    
+    span {
+      color: black !important;
+    }
+    
+    .icon {
+      filter: brightness(0) !important;
+    }
+    
+    &:hover {
+      background-color: #f5f5f5 !important;
+      border-color: #f5f5f5 !important;
     }
   }
 }
@@ -316,6 +403,31 @@ canvas {
   .subtext {
     color: var(--el-color-orange);
     font-weight: 500;
+  }
+}
+
+// Animations
+@keyframes fadeInFromBlack {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInBlur {
+  from {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
   }
 }
 </style>

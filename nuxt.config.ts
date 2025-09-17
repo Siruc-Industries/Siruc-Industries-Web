@@ -18,8 +18,11 @@ export default defineNuxtConfig({
       link: [{ rel: 'icon', type: 'image/png', href: '/favicon.png' }],
       script: [
         {
+          src: 'https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js'
+        },
+        {
           type: 'module',
-          src: 'https://unpkg.com/@splinetool/viewer@1.10.44/build/spline-viewer.js'
+          src: 'https://unpkg.com/@splinetool/viewer@1.10.57/build/spline-viewer.js'
         }
       ],
     },

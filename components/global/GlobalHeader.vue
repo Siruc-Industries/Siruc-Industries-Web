@@ -2,7 +2,7 @@
   <client-only>
     <header v-if="isMobile" id="mobileHeader">
       <NuxtLink id="logo" to="/">
-        <img src="assets/icons/logo.svg" class="img" alt="Company Logo" />
+        <img src="assets/icons/logonew.svg" class="img" alt="Company Logo" />
       </NuxtLink>
       <button class="burger" @click="drawerVisible = true">
         <svg width="32" height="32" viewBox="0 0 32 32">
@@ -39,19 +39,20 @@
       </el-drawer>
     </header>
     <header v-else id="header">
-      <NuxtLink id="logo" to="/">
-        <img src="assets/icons/logo.svg" class="img" alt="Company Logo" />
-        <h1 v-if="isDesktop" class="text">Siruć<br />Industries</h1>
-      </NuxtLink>
-      <nav id="navbar">
-        <NuxtLink to="/services" active-class="active"> Services </NuxtLink>
-        <NuxtLink to="/projects" active-class="active"> Projects </NuxtLink>
-        <NuxtLink to="/company" active-class="active"> Company </NuxtLink>
-        <NuxtLink to="/blog" active-class="active"> Blog </NuxtLink>
-      </nav>
-      <div id="btns">
-        <ButtonOutline>Contact</ButtonOutline>
-        <ButtonPrimary type="basic">Get a quote</ButtonPrimary>
+      <div class="header-container">
+        <NuxtLink id="logo" to="/">
+          <img src="assets/icons/logonew.svg" class="img" alt="Company Logo" />
+        </NuxtLink>
+        <nav id="navbar">
+          <NuxtLink to="/services" active-class="active"> Services </NuxtLink>
+          <NuxtLink to="/projects" active-class="active"> Projects </NuxtLink>
+          <NuxtLink to="/company" active-class="active"> Company </NuxtLink>
+          <NuxtLink to="/blog" active-class="active"> Blog </NuxtLink>
+        </nav>
+        <div id="btns">
+          <ButtonOutline>Contact</ButtonOutline>
+          <ButtonPrimary type="basic">Get a quote</ButtonPrimary>
+        </div>
       </div>
     </header>
   </client-only>
@@ -104,10 +105,6 @@ onBeforeUnmount(() => {
 #mobileHeader #logo {
   display: flex;
   align-items: center;
-  .img {
-    height: 38px;
-    width: 38px;
-  }
 }
 .burger {
   background: none;
@@ -161,20 +158,32 @@ onBeforeUnmount(() => {
   overflow: hidden;
   background: transparent;
   color: var(--el-color-text) !important;
-  padding: 0 36px;
+  padding: 0;
   transition: 0.2s;
   position: fixed;
   height: 76px;
   width: 100%;
   top: 0;
   z-index: 99;
-  border-bottom: 1px solid var(--el-color-line);
+  border-bottom: 1px solid rgba(131, 137, 147, 0.1);
+  opacity: 0;
+  animation: fadeInFromBlack 1s ease-out 0.1s forwards;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 36px;
+  height: 100%;
 }
 
 #header.blurred {
   background: rgba(44, 44, 46, 0.5);
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--el-color-line);
+  border-bottom: 1px solid rgba(131, 137, 147, 0.1);
 }
 
 .scrolled-down {
@@ -186,14 +195,8 @@ onBeforeUnmount(() => {
   display: flex;
   align-items: center;
   text-align: center;
-  padding: 5px;
-  position: absolute;
-  left: 30px;
-
   .img {
-    height: 38px;
-    width: 38px;
-    margin-right: 6px;
+    height: 29px;
   }
 
   .text {
@@ -211,21 +214,26 @@ onBeforeUnmount(() => {
   text-decoration: none;
   color: inherit;
   width: 100%;
-  height: 100%;
+  height: auto;
   display: flex;
   align-items: center;
+  justify-content: center;
   max-width: 1200px;
   margin: 0 auto;
   position: relative;
 
   a {
-    color: inherit;
+    color: #838993;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: -0.1px;
     display: flex;
     align-items: center;
     text-align: center;
-    height: 100%;
+    height: 40px;
     padding: 0 16px;
     position: relative;
+    border-radius: 6px;
 
     &::after {
       content: '';
@@ -244,8 +252,8 @@ onBeforeUnmount(() => {
     }
 
     &:hover {
-      background-color: #ddd;
-      color: black;
+      background-color: rgba(255, 255, 255, 0.05);
+      color: white;
     }
   }
 }
@@ -253,8 +261,7 @@ onBeforeUnmount(() => {
 #btns {
   display: flex;
   padding: 5px;
-  position: absolute;
-  right: 30px;
+  gap: 4px;
 }
 
 @media screen and (max-width: 580px) {
@@ -271,6 +278,17 @@ onBeforeUnmount(() => {
     width: auto;
     max-width: fit-content;
     margin: 0;
+  }
+}
+
+@keyframes fadeInFromBlack {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 </style>

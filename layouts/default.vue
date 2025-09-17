@@ -1,5 +1,5 @@
 <template>
-  <div class="global-container">
+  <div class="global-container" data-scroll-container>
     <GlobalHeader />
     <main class="main-container">
       <div class="index-wrapper">
@@ -141,6 +141,25 @@ const isVerticalLines = ref(false);
 onMounted(() => {
   isVerticalLines.value = localStorage.getItem('vertical-lines') === 'true';
   document.body.classList.toggle('vertical-lines', isVerticalLines.value);
+  
+  // Initialize Locomotive Scroll
+  if (typeof window !== 'undefined' && window.LocomotiveScroll) {
+    const scroll = new window.LocomotiveScroll({
+      el: document.querySelector('[data-scroll-container]'),
+      smooth: true,
+      multiplier: 0.2,
+      class: 'is-revealed',
+      scrollbarContainer: false,
+      touchMultiplier: 2,
+      smoothMobile: false,
+      smartphone: {
+        smooth: false
+      },
+      tablet: {
+        smooth: false
+      }
+    });
+  }
 });
 
 const toggleLines = () => {

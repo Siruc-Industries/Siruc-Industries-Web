@@ -53,7 +53,13 @@ defineProps({
 
 <style scoped lang="scss">
 .btn {
-  padding: 12px 20px !important;
+  height: var(--button-height) !important;
+  padding: var(--button-padding) !important;
+  font-size: var(--button-font-size) !important;
+  border-radius: var(--button-corner-radius) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: var(--button-gap) !important;
 }
 
 .orange {
@@ -81,14 +87,14 @@ span {
 }
 
 .icon {
-  width: 24px;
-  height: 24px;
+  width: var(--button-icon-size);
+  height: var(--button-icon-size);
   &-simple {
     transform: rotate(45deg);
   }
 
   &-in-circle {
-    margin-left: 6px;
+    margin-left: 4px;
   }
 }
 </style>
