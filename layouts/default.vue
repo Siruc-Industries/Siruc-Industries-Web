@@ -6,13 +6,13 @@
         <NuxtPage />
       </div>
     </main>
-    <aside class="aside">
+    <!-- <aside class="aside">
       <LineToggleEffect @toggle="toggleLines" />
       <BaseThemeSwitcher />
     </aside>
     <div id="grid-overlay" class="grid-overlay">
       <div v-for="n in 7" :key="n" class="line"></div>
-    </div>
+    </div> -->
     <GlobalFooter />
   </div>
 </template>
@@ -37,13 +37,7 @@
 }
 
 .aside {
-  position: fixed;
-  bottom: 12px;
-  left: 36px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  z-index: 1000;
+  /* removed aside buttons */
 }
 
 .grid-overlay {
@@ -60,11 +54,7 @@
   z-index: -100;
 }
 
-body.vertical-lines {
-  .grid-overlay {
-    display: grid;
-  }
-}
+/* grid overlay disabled */
 
 .line {
   display: inherit;
@@ -109,61 +99,60 @@ body.vertical-lines {
   left: 95%;
 }
 
-@keyframes slideDown {
-  from {
-    transform: translateY(-100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-@keyframes slideUp {
-  from {
-    transform: translateY(0);
-    opacity: 1;
-  }
-  to {
-    transform: translateY(-100%);
-    opacity: 0;
-  }
-}
+/* grid overlay animations removed */
 </style>
 
 <script setup lang="ts">
-import LineToggleEffect from '~/components/base/LineToggleEffect.vue';
-import { ref } from 'vue';
+// import LineToggleEffect from '~/components/base/LineToggleEffect.vue';
+import { ref, nextTick, onBeforeUnmount } from 'vue';
+import { useRouter } from 'vue-router';
 
-const isVerticalLines = ref(false);
+// const isVerticalLines = ref(false);
 
-onMounted(() => {
-  isVerticalLines.value = localStorage.getItem('vertical-lines') === 'true';
-  document.body.classList.toggle('vertical-lines', isVerticalLines.value);
-  
-  // Initialize Locomotive Scroll
-  if (typeof window !== 'undefined' && window.LocomotiveScroll) {
-    const scroll = new window.LocomotiveScroll({
-      el: document.querySelector('[data-scroll-container]'),
-      smooth: true,
-      multiplier: 0.7,
-      lerp: 0.02,
-      class: 'is-revealed',
-      scrollbarContainer: false,
-      touchMultiplier: 2,
-      smoothMobile: false,
-      smartphone: {
-        smooth: false
-      },
-      tablet: {
-        smooth: false
-      }
-    });
+let locoScroll: any = null;
+
+function initLoco() {
+  if (typeof window === 'undefined' || !window.LocomotiveScroll) return;
+  const container = document.querySelector('[data-scroll-container]') as HTMLElement | null;
+  if (!container) return;
+  locoScroll = new window.LocomotiveScroll({
+    el: container,
+    smooth: true,
+    multiplier: 0.7,
+    lerp: 0.02,
+    class: 'is-revealed',
+    scrollbarContainer: false,
+    touchMultiplier: 2,
+    smoothMobile: false,
+    smartphone: { smooth: false },
+    tablet: { smooth: false }
+  });
+}
+
+onMounted(async () => {
+  // vertical lines disabled
+  await nextTick();
+  initLoco();
+});
+
+onBeforeUnmount(() => {
+  if (locoScroll) {
+    try { locoScroll.destroy(); } catch {}
+    locoScroll = null;
   }
 });
 
-const toggleLines = () => {
+const router = useRouter();
+router.afterEach(async () => {
+  await nextTick();
+  if (locoScroll) {
+    try { locoScroll.destroy(); } catch {}
+    locoScroll = null;
+  }
+  initLoco();
+});
+
+/* const toggleLines = () => {
   // Animated version, delayed for now...
   // const lines = document.querySelectorAll('.line');
   // lines.forEach((line, index) => {
@@ -171,10 +160,5 @@ const toggleLines = () => {
   //     line.classList.toggle(isVerticalLines.value ? 'disappear' : 'appear');
   //   }, index * 100); // Stagger the animation timing
   // });
-
-  const linesGrid = document.getElementById('grid-overlay');
-  linesGrid?.classList.toggle('disappear');
-  // Toggle the state after triggering animations
-  isVerticalLines.value = !isVerticalLines.value;
-};
+}; */
 </script>

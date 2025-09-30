@@ -1,5 +1,27 @@
 <template>
-  <router-link v-slot="{ navigate }" :to="href" custom>
+  <a v-if="isExternal" :href="href">
+    <el-button
+      :class="[
+        'btn',
+        type === 'primary' ? 'orange-bg orange-border' : 'basic-bg basic-border basic-text',
+      ]"
+    >
+      <span>{{ text }}</span>
+      <img
+        v-if="straightArrow"
+        src="assets/icons/arrow-up.svg"
+        class="icon icon-simple"
+        alt="Link Arrow"
+      />
+      <img
+        v-if="circledArrow"
+        src="assets/icons/arrow-in-circle.svg"
+        class="icon icon-in-circle"
+        alt="Link Arrow"
+      />
+    </el-button>
+  </a>
+  <router-link v-else v-slot="{ navigate }" :to="href" custom>
     <el-button
       :class="[
         'btn',
@@ -25,9 +47,9 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue';
+import { defineProps, computed } from 'vue';
 
-defineProps({
+const props = defineProps({
   href: {
     type: String,
     required: true,
@@ -49,6 +71,8 @@ defineProps({
     default: false,
   },
 });
+
+const isExternal = computed(() => props.href.startsWith('mailto:') || props.href.startsWith('http') || props.href.startsWith('tel:'));
 </script>
 
 <style scoped lang="scss">

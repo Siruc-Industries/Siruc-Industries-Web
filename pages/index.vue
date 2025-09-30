@@ -64,9 +64,14 @@
 
     <div class="connect-container" data-scroll-section>
       <div class="connect-body container">
-        <div class="pointer hover-underline" @click="scrollToContact">
-          <h3 class="invite">Let's talk about your project!</h3>
-          <img src="assets/icons/arrow-right.svg" class="arrow-img" alt="Arrow right" />
+        <div class="connect-inner" data-scroll data-scroll-repeat>
+          <h3 class="connect-title">Let's talk about your project.</h3>
+          <p class="connect-desc scroll-fade" data-scroll data-scroll-repeat>
+            We’re ready to help scope, design, and build. Tell us about timelines, goals, and constraints.
+          </p>
+          <div class="connect-actions">
+            <ButtonLink text="Leave a message" type="basic" :circledArrow="true" href="mailto:hello@sirucindustries.com" />
+          </div>
         </div>
       </div>
     </div>
@@ -90,8 +95,8 @@
   </div>
 </template>
 
-<script setup>
-import { ref, computed } from 'vue';
+<script setup lang="ts">
+import { ref, computed, onMounted, onUnmounted } from 'vue';
 import CardInfo from '@/components/card/CardInfo.vue';
 
 const list = ['visionary', 'motivated', 'efficient', 'your'];
@@ -99,6 +104,50 @@ const currentIndex = ref(0);
 const contactContainer = ref(null);
 const currentWord = computed(() => list[currentIndex.value]);
 console.log(currentWord.value);
+
+// Scroll-dependent motion for connect title
+const connectSectionEl = ref<HTMLElement | null>(null);
+const connectTitleEl = ref<HTMLElement | null>(null);
+let rafId: number | null = null;
+
+function lerp(a: number, b: number, t: number) {
+  return a + (b - a) * t;
+}
+
+function clamp01(v: number) {
+  return Math.max(0, Math.min(1, v));
+}
+
+function updateConnectMotion() {
+  if (!connectSectionEl.value || !connectTitleEl.value) {
+    rafId = requestAnimationFrame(updateConnectMotion);
+    return;
+  }
+  const rect = connectSectionEl.value.getBoundingClientRect();
+  const vh = window.innerHeight || 1;
+  // Define motion over a window of the section being in view: from when top hits 80% vh to when it hits 10% vh
+  const start = vh * 0.8;
+  const finish = vh * 0.1;
+  const raw = (start - rect.top) / (start - finish);
+  const t = clamp01(raw);
+  const tx = lerp(-240, 0, t);
+  const opacity = 1; // keep blur/opacity handled by CSS fade
+  const blur = 0;    // blur not scroll dependent
+  connectTitleEl.value.style.transform = `translateX(${tx}px)`;
+  connectTitleEl.value.style.opacity = String(opacity);
+  connectTitleEl.value.style.filter = `blur(${blur}px)`;
+  rafId = requestAnimationFrame(updateConnectMotion);
+}
+
+onMounted(() => {
+  connectSectionEl.value = document.querySelector('.connect-container');
+  connectTitleEl.value = document.querySelector('.connect-title');
+  rafId = requestAnimationFrame(updateConnectMotion);
+});
+
+onUnmounted(() => {
+  if (rafId) cancelAnimationFrame(rafId);
+});
 
 function scrollToContact() {
   if (contactContainer.value) {
@@ -160,8 +209,10 @@ canvas {
 
 .connect {
   &-container {
-    background-color: #222224;
+    /* remove background */
+    background-color: transparent;
     margin-bottom: 160px;
+    min-height: 70vh;
   }
   &-body {
     padding: 72px 0;
@@ -185,6 +236,79 @@ canvas {
       transition: all 0.2s linear;
     }
   }
+}
+
+/* Connect section styling */
+.connect-inner {
+  position: relative;
+  overflow: visible;
+}
+
+.connect-title {
+  font-size: 64px;
+  font-weight: 500;
+  letter-spacing: -3px;
+  line-height: 64px;
+  color: var(--el-color-text);
+  white-space: nowrap;
+  margin: 0 0 8px 0;
+  transform: translateX(-120px);
+  opacity: 0;
+}
+
+.is-revealed .connect-title {
+  animation: connectNudgeIn 0.9s ease-out 0s forwards;
+}
+
+@keyframes connectNudgeIn {
+  0% { transform: translateX(-40px); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+.connect-desc {
+  max-width: 420px;
+  color: #838993;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.1px;
+  line-height: 22px;
+  margin-top: 8px;
+  opacity: 0;
+  transform: translateY(8px);
+  filter: blur(10px);
+}
+
+.is-revealed .connect-desc {
+  animation: fadeInBlur 0.8s ease-out 0.4s forwards;
+}
+
+.connect-actions {
+  margin-top: 16px;
+  opacity: 0;
+  transform: translateY(8px);
+  filter: blur(10px);
+}
+
+/* Secondary-like variant for link-style CTA (inherits ButtonLink basic styles) */
+.connect-actions :deep(.btn) {
+  background: transparent !important;
+  border-color: transparent !important;
+  padding-left: 12px !important;
+}
+.is-revealed .connect-actions {
+  animation: fadeInBlur 0.9s ease-out 0.8s forwards;
+}
+
+.connect-actions :deep(.btn) span {
+  color: #838993 !important;
+}
+
+.connect-actions :deep(.btn):hover {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+.connect-actions :deep(.btn):hover span {
+  color: #ffffff !important;
 }
 
 .hero-section {
