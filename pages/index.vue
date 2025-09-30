@@ -22,28 +22,43 @@
       </div>
     </section>
 
-    <!-- Mark following sections as scroll sections to avoid height collapse with Locomotive -->
     <div class="welcome-wrapper" data-scroll-section>
-      <h2 class="container welcome-title">
-        Comprehensive Digital Solutions <br />
-        for <span class="subtext">Every Ambition</span>
-      </h2>
-      <div class="container card-container">
-        <CardLink
-          :id="1"
-          :title="'Software Stuff Augmentaion'"
-          text="We scale your team with essential personnel your development team needs."
-        ></CardLink>
-        <CardLink
-          :id="1"
-          :title="'Software Stuff Augmentaion'"
-          text="We scale your team with essential personnel your development team needs."
-        ></CardLink>
-        <CardLink
-          :id="1"
-          :title="'Software Stuff Augmentaion'"
-          text="We scale your team with essential personnel your development team needs."
-        ></CardLink>
+      <div class="container">
+        <h2 class="welcome-title scroll-fade" data-scroll data-scroll-speed="0.35" data-scroll-repeat>
+          Services We Provide
+        </h2>
+
+        <div class="welcome-grid" data-scroll data-scroll-repeat>
+          <div class="col scroll-fade" data-scroll data-scroll-speed="0.2">
+            <div class="welcome-card" data-scroll data-scroll-speed="0.25">
+              <h3 class="card-title">Design</h3>
+              <p class="card-desc">Human-centered UI/UX that elevates your brand and product usability.</p>
+              <NuxtLink to="/services" class="text-button">Explore services</NuxtLink>
+            </div>
+            <div class="welcome-card" data-scroll data-scroll-speed="0.15">
+              <h3 class="card-title">Development</h3>
+              <p class="card-desc">Robust web and app engineering, from MVPs to enterprise systems.</p>
+              <NuxtLink to="/services" class="text-button">Explore services</NuxtLink>
+            </div>
+          </div>
+          <div class="col scroll-fade" data-scroll data-scroll-speed="0.1">
+            <div class="welcome-card" data-scroll data-scroll-speed="0.20">
+              <h3 class="card-title">Marketing</h3>
+              <p class="card-desc">Full-funnel growth strategies that convert attention into revenue.</p>
+              <NuxtLink to="/services" class="text-button">Explore services</NuxtLink>
+            </div>
+            <div class="welcome-card" data-scroll data-scroll-speed="0.12">
+              <h3 class="card-title">SEO</h3>
+              <p class="card-desc">Technical SEO and content systems that scale organic discovery.</p>
+              <NuxtLink to="/services" class="text-button">Explore services</NuxtLink>
+            </div>
+            <div class="welcome-card" data-scroll data-scroll-speed="0.08">
+              <h3 class="card-title">Support</h3>
+              <p class="card-desc">Reliable maintenance, monitoring, and iteration post‑launch.</p>
+              <NuxtLink to="/services" class="text-button">Explore services</NuxtLink>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -72,55 +87,6 @@
         <CommonContactForm></CommonContactForm>
       </div>
     </div>
-    <div class="welcome-wrapper">
-      <h2 class="container welcome-title">
-        Comprehensive Digital Solutions <br />
-        for <span class="subtext">Every Ambition</span>
-      </h2>
-      <div class="container card-container">
-        <CardLink
-          :id="1"
-          :title="'Software Stuff Augmentaion'"
-          text="We scale your team with essential personnel your development team needs."
-        ></CardLink>
-        <CardLink
-          :id="1"
-          :title="'Software Stuff Augmentaion'"
-          text="We scale your team with essential personnel your development team needs."
-        ></CardLink>
-        <CardLink
-          :id="1"
-          :title="'Software Stuff Augmentaion'"
-          text="We scale your team with essential personnel your development team needs."
-        ></CardLink>
-      </div>
-    </div>
-
-    <div class="connect-container">
-      <div class="connect-body container">
-        <div class="pointer hover-underline" @click="scrollToContact">
-          <h3 class="invite">Let's talk about your project!</h3>
-          <img src="assets/icons/arrow-right.svg" class="arrow-img" alt="Arrow right" />
-        </div>
-      </div>
-    </div>
-
-    <h2 class="container welcome-message">Welcome to Siruć Industries</h2>
-    <div class="container card-container">
-      <CardInfo
-        v-for="(card, idx) in cards"
-        :key="idx"
-        :index="card.index"
-        :title="card.title"
-        :text="card.text"
-      />
-    </div>
-
-    <div ref="contactContainer" class="contact-container">
-      <div class="contact-body container">
-        <CommonContactForm></CommonContactForm>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -137,22 +103,11 @@ console.log(currentWord.value);
 function scrollToContact() {
   if (contactContainer.value) {
     contactContainer.value.scrollIntoView({
-      behavior: 'smooth', // Smooth scrolling animation
-      block: 'start', // Align to the top of the container
+      behavior: 'smooth',
+      block: 'start',
     });
   }
 }
-
-// const updateWord = () => {
-//   currentIndex.value = (currentIndex.value + 1) % list.length;
-// };
-// let interval;
-// onMounted(() => {
-//   interval = setInterval(updateWord, 2000);
-// });
-// onUnmounted(() => {
-//   clearInterval(interval);
-// });
 
 const cards = ref([
   { index: 1, title: 'Design', text: 'Description for Design, Lorem ipsum dolor sit amet.' },
@@ -297,7 +252,6 @@ canvas {
     }
   }
   
-  // Custom button styling for hero
   :deep(.btn) {
     background-color: white !important;
     border-color: white !important;
@@ -352,6 +306,10 @@ canvas {
     max-width: 100%;
     padding: 30px;
   }
+  .welcome-title {
+    font-size: 40px;
+    line-height: 60px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -363,6 +321,10 @@ canvas {
       line-height: 56px;
     }
   }
+  .welcome-title {
+    font-size: 36px;
+    line-height: 50px;
+  }
 }
 
 .classifier {
@@ -371,14 +333,12 @@ canvas {
 }
 
 @media (max-width: 768px) {
-  /* For smaller screens, adjust to two columns */
   .card-container {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 480px) {
-  /* For very small screens, adjust to one column */
   .card-container {
     grid-template-columns: 1fr;
   }
@@ -390,15 +350,26 @@ canvas {
 }
 
 .welcome-wrapper {
-  padding: 0 0 160px 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 80px 0;
+  position: relative;
 }
 
 .welcome-title {
-  font-size: 36px;
-  color: var(--el-color-text);
-  text-align: center;
+  font-size: 48px;
   font-weight: 500;
-  padding-bottom: 24px;
+  letter-spacing: -2.5px;
+  line-height: 64px;
+  color: var(--el-color-text);
+  text-align: left;
+  max-width: 800px;
+  margin: 0 0 24px 0;
+  padding: 0;
+  opacity: 0;
+  transform: translateY(10px);
+  filter: blur(10px);
 
   .subtext {
     color: var(--el-color-orange);
@@ -406,7 +377,97 @@ canvas {
   }
 }
 
-// Animations
+.welcome-grid {
+  display: grid;
+  grid-template-columns: 40% 60%;
+  column-gap: 8px;
+  row-gap: 8px;
+  align-items: stretch;
+  height: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.welcome-grid .col {
+  display: grid;
+  gap: 8px;
+  height: 100%;
+  opacity: 0;
+  transform: translateY(10px);
+  filter: blur(10px);
+}
+
+.welcome-grid .col:nth-child(1) {
+  grid-template-rows: repeat(2, 1fr);
+}
+
+.welcome-grid .col:nth-child(2) {
+  grid-template-rows: repeat(3, 1fr);
+}
+
+.welcome-card {
+  position: relative;
+  height: 100%;
+  padding: 20px;
+  border-radius: 12px;
+  background: #0a0a0c;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+}
+
+.welcome-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(60deg, rgba(255,255,255,0.15), rgba(255,255,255,0.06));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+}
+
+.card-title {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.2px;
+  margin: 0 0 8px 0;
+}
+
+.card-desc {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.1px;
+  color: #838993;
+  line-height: 22px;
+  margin: 0 0 12px 0;
+}
+
+.text-button {
+  color: #838993;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: -0.1px;
+  text-decoration: none;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 10px;
+  border-radius: 8px;
+}
+
+.text-button:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: white;
+}
+
+@media (max-width: 1024px) {
+  .welcome-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 @keyframes fadeInFromBlack {
   from {
     opacity: 0;
@@ -429,5 +490,10 @@ canvas {
     filter: blur(0);
     transform: translateY(0);
   }
+}
+
+.is-revealed.scroll-fade,
+.is-revealed .scroll-fade {
+  animation: fadeInBlur 0.9s ease-out 0s forwards;
 }
 </style>

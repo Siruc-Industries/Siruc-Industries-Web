@@ -156,7 +156,9 @@ onBeforeUnmount(() => {
   display: flex;
   align-items: center;
   overflow: hidden;
-  background: transparent;
+  background: rgba(12, 12, 14, 0.35);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   color: var(--el-color-text) !important;
   padding: 0;
   transition: 0.2s;
@@ -181,8 +183,9 @@ onBeforeUnmount(() => {
 }
 
 #header.blurred {
-  background: rgba(44, 44, 46, 0.5);
-  backdrop-filter: blur(10px);
+  background: rgba(12, 12, 14, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(131, 137, 147, 0.1);
 }
 
@@ -240,15 +243,15 @@ onBeforeUnmount(() => {
       position: absolute;
       left: 0;
       right: 0;
-      bottom: 0; /* Position it at the bottom of the link */
-      height: 4px; /* Thickness of the underline */
+      bottom: 0;
+      height: 4px;
       background-color: var(--el-color-orange);
       clip-path: inset(0 100% 0 0);
       transition: clip-path 0.3s ease;
     }
 
     &.active::after {
-      clip-path: inset(0 0 0 0); /* Reveal the underline when active */
+      clip-path: inset(0 0 0 0);
     }
 
     &:hover {

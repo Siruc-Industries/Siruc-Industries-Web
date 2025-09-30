@@ -147,7 +147,8 @@ onMounted(() => {
     const scroll = new window.LocomotiveScroll({
       el: document.querySelector('[data-scroll-container]'),
       smooth: true,
-      multiplier: 0.2,
+      multiplier: 0.7,
+      lerp: 0.02,
       class: 'is-revealed',
       scrollbarContainer: false,
       touchMultiplier: 2,
