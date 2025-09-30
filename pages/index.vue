@@ -3,7 +3,9 @@
     <section class="hero-section" data-scroll-section>
       <div class="spline-background">
         <div class="spline-container">
-          <spline-viewer url="https://prod.spline.design/a003KKhjX5KeLY8T/scene.splinecode"></spline-viewer>
+          <spline-viewer
+            url="https://prod.spline.design/a003KKhjX5KeLY8T/scene.splinecode"
+          ></spline-viewer>
         </div>
       </div>
       <div class="container">
@@ -16,7 +18,8 @@
             brand's digital.
           </p>
           <div @click="scrollToContact" data-scroll data-scroll-speed="0.1">
-            <ButtonLink text="Get a quote" type="primary" :circledArrow="true" href="/"> </ButtonLink>
+            <ButtonLink text="Get a quote" type="primary" :circledArrow="true" href="/">
+            </ButtonLink>
           </div>
         </div>
       </div>
@@ -24,7 +27,12 @@
 
     <div class="welcome-wrapper" data-scroll-section>
       <div class="container">
-        <h2 class="welcome-title scroll-fade" data-scroll data-scroll-speed="0.35" data-scroll-repeat>
+        <h2
+          class="welcome-title scroll-fade"
+          data-scroll
+          data-scroll-speed="0.35"
+          data-scroll-repeat
+        >
           Services We Provide
         </h2>
 
@@ -32,24 +40,32 @@
           <div class="col scroll-fade" data-scroll data-scroll-speed="0.2">
             <div class="welcome-card" data-scroll data-scroll-speed="0.25">
               <h3 class="card-title">Design</h3>
-              <p class="card-desc">Human-centered UI/UX that elevates your brand and product usability.</p>
+              <p class="card-desc">
+                Human-centered UI/UX that elevates your brand and product usability.
+              </p>
               <NuxtLink to="/services" class="text-button">Explore services</NuxtLink>
             </div>
             <div class="welcome-card" data-scroll data-scroll-speed="0.15">
               <h3 class="card-title">Development</h3>
-              <p class="card-desc">Robust web and app engineering, from MVPs to enterprise systems.</p>
+              <p class="card-desc">
+                Robust web and app engineering, from MVPs to enterprise systems.
+              </p>
               <NuxtLink to="/services" class="text-button">Explore services</NuxtLink>
             </div>
           </div>
           <div class="col scroll-fade" data-scroll data-scroll-speed="0.1">
             <div class="welcome-card" data-scroll data-scroll-speed="0.20">
               <h3 class="card-title">Marketing</h3>
-              <p class="card-desc">Full-funnel growth strategies that convert attention into revenue.</p>
+              <p class="card-desc">
+                Full-funnel growth strategies that convert attention into revenue.
+              </p>
               <NuxtLink to="/services" class="text-button">Explore services</NuxtLink>
             </div>
             <div class="welcome-card" data-scroll data-scroll-speed="0.12">
               <h3 class="card-title">SEO</h3>
-              <p class="card-desc">Technical SEO and content systems that scale organic discovery.</p>
+              <p class="card-desc">
+                Technical SEO and content systems that scale organic discovery.
+              </p>
               <NuxtLink to="/services" class="text-button">Explore services</NuxtLink>
             </div>
             <div class="welcome-card" data-scroll data-scroll-speed="0.08">
@@ -67,10 +83,16 @@
         <div class="connect-inner" data-scroll data-scroll-repeat>
           <h3 class="connect-title">Let's talk about your project.</h3>
           <p class="connect-desc scroll-fade" data-scroll data-scroll-repeat>
-            We’re ready to help scope, design, and build. Tell us about timelines, goals, and constraints.
+            We’re ready to help scope, design, and build. Tell us about timelines, goals, and
+            constraints.
           </p>
           <div class="connect-actions">
-            <ButtonLink text="Leave a message" type="basic" :circledArrow="true" href="mailto:hello@sirucindustries.com" />
+            <ButtonLink
+              text="Leave a message"
+              type="basic"
+              :circledArrow="true"
+              href="mailto:hello@sirucindustries.com"
+            />
           </div>
         </div>
       </div>
@@ -132,7 +154,7 @@ function updateConnectMotion() {
   const t = clamp01(raw);
   const tx = lerp(-240, 0, t);
   const opacity = 1; // keep blur/opacity handled by CSS fade
-  const blur = 0;    // blur not scroll dependent
+  const blur = 0; // blur not scroll dependent
   connectTitleEl.value.style.transform = `translateX(${tx}px)`;
   connectTitleEl.value.style.opacity = String(opacity);
   connectTitleEl.value.style.filter = `blur(${blur}px)`;
@@ -261,8 +283,14 @@ canvas {
 }
 
 @keyframes connectNudgeIn {
-  0% { transform: translateX(-40px); opacity: 0; }
-  100% { transform: translateX(0); opacity: 1; }
+  0% {
+    transform: translateX(-40px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 .connect-desc {
@@ -325,13 +353,13 @@ canvas {
   width: 100vw;
   height: 100vh;
   z-index: 1;
-  
+
   .spline-container {
     width: 100%;
     height: 100%;
     opacity: 0;
     animation: fadeInBlur 1.5s ease-out 1.5s forwards;
-    
+
     spline-viewer {
       width: 100%;
       height: 100%;
@@ -349,7 +377,7 @@ canvas {
   text-align: left;
   opacity: 0;
   animation: fadeInFromBlack 1.2s ease-out 0.3s forwards;
-  
+
   .greeting {
     &-title {
       font-size: 64px;
@@ -375,22 +403,22 @@ canvas {
       animation: fadeInBlur 1s ease-out 0.9s forwards;
     }
   }
-  
+
   :deep(.btn) {
     background-color: white !important;
     border-color: white !important;
     gap: 8px !important;
     opacity: 0;
     animation: fadeInBlur 1s ease-out 1.2s forwards;
-    
+
     span {
       color: black !important;
     }
-    
+
     .icon {
       filter: brightness(0) !important;
     }
-    
+
     &:hover {
       background-color: #f5f5f5 !important;
       border-color: #f5f5f5 !important;
@@ -439,7 +467,7 @@ canvas {
 @media (max-width: 768px) {
   .hero-content {
     padding: 20px;
-    
+
     .greeting-title {
       font-size: 48px;
       line-height: 56px;
@@ -545,10 +573,12 @@ canvas {
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(60deg, rgba(255,255,255,0.15), rgba(255,255,255,0.06));
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  background: linear-gradient(60deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.06));
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
-          mask-composite: exclude;
+  mask-composite: exclude;
   pointer-events: none;
 }
 
