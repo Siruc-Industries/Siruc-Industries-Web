@@ -16,7 +16,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 
 const sidebarOpen = ref(false);
 
@@ -27,6 +27,18 @@ const toggleSidebar = () => {
 const closeSidebar = () => {
   sidebarOpen.value = false;
 };
+
+// Mark animation as complete after it finishes
+onMounted(() => {
+  if (typeof window !== 'undefined') {
+    setTimeout(() => {
+      const header = document.getElementById('header');
+      if (header) {
+        header.classList.add('animation-complete');
+      }
+    }, 1200); // After animation completes (1s + 0.1s delay + buffer)
+  }
+});
 </script>
 
 <style scoped lang="scss">
@@ -42,7 +54,25 @@ const closeSidebar = () => {
   left: 0;
   z-index: 999;
   opacity: 0;
+  transform: translateY(0);
   animation: fadeInFromBlack 1s ease-out 0.1s forwards;
+}
+
+// After initial animation completes, disable it and use transitions
+#header.animation-complete {
+  animation: none;
+  opacity: 1;
+  transform: translateY(0);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+// When hidden - use transition
+#header.navbar-hidden {
+  transform: translateY(-100%) !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  animation: none !important;
+  transition: transform 0.3s ease, opacity 0.3s ease !important;
 }
 
 .header-container {

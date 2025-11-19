@@ -1,24 +1,24 @@
 <template>
   <div class="homepage-container">
     <!-- Section 1: Hero Section -->
-    <section class="hero-section" data-scroll-section>
+    <section class="hero-section">
       <div class="container">
-        <div class="hero-content" data-scroll data-scroll-speed="0.5">
-          <h1 class="greeting-title" data-scroll data-scroll-speed="0.3">
+        <div class="hero-content">
+          <h1 class="greeting-title">
             You Dream It, <span class="playfair-text">We Build It.</span>
           </h1>
-          <p class="greeting-text" data-scroll data-scroll-speed="0.2">
+          <p class="greeting-text">
             We specialize in delivering high-quality, custom software solutions that elevate your
             brand's digital.
           </p>
-          <div data-scroll data-scroll-speed="0.1" class="button-wrapper">
+          <div class="button-wrapper">
             <ButtonLink text="Get a quote" type="primary" href="/" iconify-icon="line-md:arrow-right" variant="hero"></ButtonLink>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="bento-section" data-scroll-section>
+    <section class="bento-section">
       <div class="bento-container">
         <div class="bento-grid">
           <div class="bento-card bento-card-featured">
@@ -123,13 +123,114 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, nextTick } from 'vue';
 
+const heroSection = ref<HTMLElement | null>(null);
 const bentoSection = ref<HTMLElement | null>(null);
+const bentoContainer = ref<HTMLElement | null>(null);
 let observer: IntersectionObserver | null = null;
 let hasAnimated = false;
+let scrollHandler: (() => void) | null = null;
+
+const handleScroll = () => {
+  if (typeof window === 'undefined' || !heroSection.value) return;
+  
+  const scrollY = window.scrollY;
+  const viewportHeight = window.innerHeight;
+  const maxScroll = viewportHeight * 0.6; // Maximum scroll distance for animation (60% of viewport)
+  const progress = Math.min(scrollY / maxScroll, 1);
+  
+  // Hide/show navbar based on scroll position
+  const header = document.querySelector('#header') as HTMLElement | null;
+  if (header) {
+    if (scrollY > 50) {
+      if (!header.classList.contains('navbar-hidden')) {
+        header.classList.add('navbar-hidden');
+      }
+    } else {
+      if (header.classList.contains('navbar-hidden')) {
+        header.classList.remove('navbar-hidden');
+      }
+    }
+  }
+  
+  // Decrease hero section height (from 100vh to ~40vh)
+  const minHeight = 40; // Minimum height in vh
+  const maxHeight = 100; // Maximum height in vh
+  const currentHeight = maxHeight - (maxHeight - minHeight) * progress;
+  heroSection.value.style.height = `${currentHeight}vh`;
+  
+  // Move grid up from bottom of viewport to title position
+  if (bentoSection.value) {
+    // Grid starts at bottom (100vh down) and moves up to title position (40vh up)
+    const startPosition = viewportHeight; // Start below viewport
+    const endPosition = viewportHeight * 0.4; // End at title position
+    const currentPosition = startPosition - (startPosition - endPosition) * progress;
+    bentoSection.value.style.transform = `translateY(${currentPosition}px)`;
+  }
+  
+  // Animate grid container width from 80% to 100% (faster - reaches 100% at 50% scroll progress)
+  if (bentoContainer.value) {
+    const minWidth = 80; // Start at 80%
+    const maxWidth = 100; // End at 100%
+    // Make width expand faster - use progress * 2 to reach 100% earlier
+    const widthProgress = Math.min(progress * 2, 1);
+    const currentWidth = minWidth + (maxWidth - minWidth) * widthProgress;
+    bentoContainer.value.style.width = `${currentWidth}%`;
+  }
+};
 
 onMounted(() => {
   if (typeof window === 'undefined') return;
   
+  nextTick(() => {
+    heroSection.value = document.querySelector('.hero-section');
+    bentoSection.value = document.querySelector('.bento-section');
+    bentoContainer.value = document.querySelector('.bento-container');
+    
+    // Set body and container height to allow scrolling
+    // At final scroll: hero is 40vh, grid is at translateY(40vh), so grid bottom is at 40vh + 100vh = 140vh
+    // Plus scroll distance needed
+    if (typeof window !== 'undefined') {
+      const viewportHeight = window.innerHeight;
+      const maxScroll = viewportHeight * 0.6;
+      // Final state: 40vh (hero) + 100vh (grid) = 140vh, plus scroll distance
+      const finalHeight = viewportHeight * 0.9 + maxScroll;
+      document.body.style.height = `${finalHeight}px`;
+      document.documentElement.style.height = `${finalHeight}px`;
+      
+      // Set container height to match
+      const container = document.querySelector('.homepage-container') as HTMLElement;
+      if (container) {
+        container.style.height = `${finalHeight}px`;
+      }
+    }
+    
+    // Set up scroll listener
+    scrollHandler = handleScroll;
+    window.addEventListener('scroll', scrollHandler, { passive: true });
+    
+    // Initial call to set navbar state
+    handleScroll();
+    
+    // Also set up a dedicated navbar scroll handler that runs after a short delay
+    // to ensure the header element is available
+    setTimeout(() => {
+      const handleNavbarScroll = () => {
+        const scrollY = window.scrollY || window.pageYOffset;
+        const header = document.getElementById('header');
+        if (header) {
+          if (scrollY > 50) {
+            header.classList.add('navbar-hidden');
+          } else {
+            header.classList.remove('navbar-hidden');
+          }
+        }
+      };
+      window.addEventListener('scroll', handleNavbarScroll, { passive: true });
+      handleNavbarScroll(); // Initial call
+    }, 100);
+  });
+  
+  // Intersection Observer for bento grid animations
   observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -142,7 +243,7 @@ onMounted(() => {
           
           setTimeout(() => {
             entry.target.classList.add('animations-complete');
-          }, 2500);
+          }, 2000);
         }
       });
     },
@@ -162,12 +263,34 @@ onUnmounted(() => {
     observer.disconnect();
     observer = null;
   }
+  
+  if (scrollHandler && typeof window !== 'undefined') {
+    window.removeEventListener('scroll', scrollHandler);
+  }
 });
 </script>
 
 <style scoped lang="scss">
 .homepage-container {
   width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+  position: relative;
+  background-color: #fbfbfb;
+  
+  // Remove any spacing after last section
+  > section:last-child {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+  }
+  
+  // Remove default section margins
+  section {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 }
 
 iframe {
@@ -182,14 +305,17 @@ canvas {
 }
 
 .hero-section {
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100vh;
+  min-height: 40vh;
   overflow: hidden;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
   background-color: #ffffff;
   padding-top: 76px;
+  transition: height 0.1s ease-out;
+  z-index: 1;
 }
 
 .hero-section .container {
@@ -253,9 +379,13 @@ canvas {
     justify-content: center;
   }
   
-  :deep(.btn) {
+  .button-wrapper {
     opacity: 0;
     animation: fadeInBlur 1s ease-out 1.2s forwards;
+  }
+  
+  :deep(.btn) {
+    opacity: 1;
   }
   
   :deep(.el-button.hero-btn) {
@@ -299,22 +429,34 @@ canvas {
 .bento-section {
   width: 100%;
   height: 100vh;
-    display: flex;
-    align-items: center;
-  justify-content: center;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-  background: #fbfbfb;
-  padding: 0;
-}
-
-.bento-container {
-  width: 100%;
-  padding: 12px;
-  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: #fbfbfb;
+  padding: 0;
+  margin: 0;
+  transition: transform 0.1s ease-out;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  box-sizing: border-box;
+  overflow: hidden;
+  // Start below viewport, will move up on scroll
+  transform: translateY(100vh);
+}
+
+.bento-container {
+  width: 80%;
+  padding: 12px;
+  height: 100%;
+  max-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: width 0.1s ease-out;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .bento-grid {
@@ -323,8 +465,10 @@ canvas {
   grid-template-rows: 30vh 65vh;
   gap: 12px;
   width: 100%;
-  height: 95vh;
+  height: 100%;
+  max-height: 100%;
   align-items: stretch;
+  box-sizing: border-box;
 }
 
 .bento-card {
@@ -550,39 +694,8 @@ canvas {
 .bento-section:not(.is-revealed) .bento-card {
   opacity: 0 !important;
   visibility: hidden !important;
-}
-
-.bento-section:not(.is-revealed) .bento-card:nth-child(1),
-.bento-section:not(.is-revealed) .bento-card:nth-child(2) {
-  transform: translateX(-150%) !important;
-  opacity: 0 !important;
-  visibility: hidden;
-}
-
-.bento-section:not(.is-revealed) .bento-card:nth-child(3),
-.bento-section:not(.is-revealed) .bento-card:nth-child(4) {
-  transform: translateX(150%) !important;
-  opacity: 0 !important;
-  visibility: hidden;
-}
-
-.bento-section:not(.is-revealed) .bento-card:nth-child(5),
-.bento-section:not(.is-revealed) .bento-card:nth-child(6) {
-  transform: translateY(150%) !important;
-  opacity: 0 !important;
-  visibility: hidden;
-}
-
-.bento-section:not(.is-revealed) .bento-card:nth-child(7) {
-  transform: translateX(150%) !important;
-  opacity: 0 !important;
-  visibility: hidden;
-}
-
-.bento-section:not(.is-revealed) .bento-card-column .bento-card {
-  transform: translateX(150%) !important;
-  opacity: 0 !important;
-  visibility: hidden;
+  filter: blur(10px);
+  transform: translateY(10px);
 }
 
 .bento-section.is-revealed .bento-card {
@@ -590,81 +703,49 @@ canvas {
 }
 
 .bento-section.is-revealed .bento-card:nth-child(1) {
-  animation: slideInFromLeft 1.2s ease-out 0.1s forwards;
+  animation: fadeInBlur 0.9s ease-out 0.1s forwards;
 }
 
 .bento-section.is-revealed .bento-card:nth-child(2) {
-  animation: slideInFromLeft 1.4s ease-out 0.15s forwards;
+  animation: fadeInBlur 1.1s ease-out 0.2s forwards;
 }
 
 .bento-section.is-revealed .bento-card:nth-child(3) {
-  animation: slideInFromRight 1.3s ease-out 0.2s forwards;
+  animation: fadeInBlur 0.8s ease-out 0.15s forwards;
 }
 
 .bento-section.is-revealed .bento-card:nth-child(4) {
-  animation: slideInFromRight 1.5s ease-out 0.25s forwards;
+  animation: fadeInBlur 1.2s ease-out 0.25s forwards;
 }
 
 .bento-section.is-revealed .bento-card:nth-child(5) {
-  animation: slideInFromBottom 1.6s ease-out 0.3s forwards;
+  animation: fadeInBlur 1.0s ease-out 0.3s forwards;
 }
 
 .bento-section.is-revealed .bento-card:nth-child(6) {
-  animation: slideInFromBottom 1.4s ease-out 0.35s forwards;
+  animation: fadeInBlur 1.1s ease-out 0.35s forwards;
 }
 
 .bento-section.is-revealed .bento-card:nth-child(7) {
-  animation: slideInFromRight 1.3s ease-out 0.4s forwards;
+  animation: fadeInBlur 0.9s ease-out 0.4s forwards;
 }
 
 .bento-section.is-revealed .bento-card-column .bento-card:nth-child(1) {
-  animation: slideInFromRight 1.1s ease-out 0.5s forwards;
+  animation: fadeInBlur 0.8s ease-out 0.5s forwards;
 }
 
 .bento-section.is-revealed .bento-card-column .bento-card:nth-child(2) {
-  animation: slideInFromRight 1.2s ease-out 0.6s forwards;
+  animation: fadeInBlur 0.9s ease-out 0.6s forwards;
 }
 
 .bento-section.is-revealed .bento-card-column .bento-card:nth-child(3) {
-  animation: slideInFromRight 1.3s ease-out 0.7s forwards;
+  animation: fadeInBlur 1.0s ease-out 0.7s forwards;
 }
 
 .bento-section.is-revealed .bento-card-column .bento-card:nth-child(4) {
-  animation: slideInFromRight 1.4s ease-out 0.8s forwards;
+  animation: fadeInBlur 1.1s ease-out 0.8s forwards;
 }
 
-@keyframes slideInFromRight {
-  from {
-    transform: translateX(150%);
-    opacity: 1;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-@keyframes slideInFromBottom {
-  from {
-    transform: translateY(150%);
-    opacity: 1;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-@keyframes slideInFromLeft {
-  from {
-    transform: translateX(-150%);
-    opacity: 1;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
 
 .bento-card-wide {
   grid-column: span 2;

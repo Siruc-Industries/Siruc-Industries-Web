@@ -40,6 +40,14 @@
 
 .index-wrapper {
   width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+// On homepage, make sure main container doesn't add extra space
+.main-container:has(.homepage-container) {
+  height: auto;
+  overflow: hidden;
 }
 
 
@@ -150,12 +158,11 @@ onMounted(async () => {
     locoScroll = null;
   }
   
-  // Remove Locomotive Scroll classes on homepage and ensure scroll snap works
+  // Remove Locomotive Scroll classes on homepage
   if (isHomepage() && typeof window !== 'undefined') {
     document.documentElement.classList.remove('has-scroll-smooth', 'has-scroll-dragging');
     document.body.classList.remove('has-scroll-smooth');
-    // Force scroll snap
-    document.documentElement.style.scrollSnapType = 'y mandatory';
+    document.documentElement.style.scrollSnapType = '';
     document.body.style.overflowY = 'auto';
   }
   
@@ -180,12 +187,11 @@ router.afterEach(async () => {
     locoScroll = null;
   }
   
-  // Remove Locomotive Scroll classes on homepage and ensure scroll snap works
+  // Remove Locomotive Scroll classes on homepage
   if (isHomepage() && typeof window !== 'undefined') {
     document.documentElement.classList.remove('has-scroll-smooth', 'has-scroll-dragging');
     document.body.classList.remove('has-scroll-smooth');
-    // Force scroll snap
-    document.documentElement.style.scrollSnapType = 'y mandatory';
+    document.documentElement.style.scrollSnapType = '';
     document.body.style.overflowY = 'auto';
   }
   
