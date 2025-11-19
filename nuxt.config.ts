@@ -15,14 +15,18 @@ export default defineNuxtConfig({
         { property: 'og:description', content: 'We make websites' },
         { property: 'og:image', content: ' !add https image !' },
       ],
-      link: [{ rel: 'icon', type: 'image/png', href: '/favicon.png' }],
+      link: [
+        { rel: 'icon', type: 'image/png', href: '/favicon.png' },
+        { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+        { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
+        { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap' }
+      ],
       script: [
         {
           src: 'https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js'
         },
         {
-          type: 'module',
-          src: 'https://unpkg.com/@splinetool/viewer@1.10.57/build/spline-viewer.js'
+          src: 'https://code.iconify.design/2/2.0.3/iconify.min.js'
         }
       ],
     },
@@ -49,4 +53,9 @@ export default defineNuxtConfig({
   plugins: ['~/plugins/element-plus'],
   css: ['~/assets/styles/main.scss'],
   modules: ['@nuxt/eslint'],
+  vue: {
+    compilerOptions: {
+      isCustomElement: (tag) => tag === 'iconify-icon',
+    },
+  },
 });

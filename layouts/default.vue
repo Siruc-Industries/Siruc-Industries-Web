@@ -13,7 +13,7 @@
     <div id="grid-overlay" class="grid-overlay">
       <div v-for="n in 7" :key="n" class="line"></div>
     </div> -->
-    <GlobalFooter />
+    <GlobalFooter v-if="!isHomepage()" />
   </div>
 </template>
 
@@ -24,9 +24,15 @@
   min-height: 100vh;
 }
 
+/* On homepage, allow natural scrolling */
+.global-container:has(.homepage-container) {
+  height: auto;
+  min-height: 100vh;
+}
+
 .main-container {
   width: 100%;
-  padding-top: 80px;
+  padding-top: 0;
   display: flex;
   flex-grow: 1;
   z-index: 1 !important;
@@ -36,9 +42,6 @@
   width: 100%;
 }
 
-.aside {
-  /* removed aside buttons */
-}
 
 .grid-overlay {
   position: fixed;
@@ -104,15 +107,24 @@
 
 <script setup lang="ts">
 // import LineToggleEffect from '~/components/base/LineToggleEffect.vue';
-import { ref, nextTick, onBeforeUnmount } from 'vue';
-import { useRouter } from 'vue-router';
+import { ref, nextTick, onBeforeUnmount, onMounted } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
 
 // const isVerticalLines = ref(false);
 
+const router = useRouter();
+const route = useRoute();
 let locoScroll: any = null;
+
+const isHomepage = () => {
+  return route.path === '/' || route.path === '/index';
+};
 
 function initLoco() {
   if (typeof window === 'undefined' || !window.LocomotiveScroll) return;
+  // Don't initialize Locomotive Scroll on homepage (uses native scroll snap)
+  if (isHomepage()) return;
+  
   const container = document.querySelector('[data-scroll-container]') as HTMLElement | null;
   if (!container) return;
   locoScroll = new window.LocomotiveScroll({
@@ -132,7 +144,25 @@ function initLoco() {
 onMounted(async () => {
   // vertical lines disabled
   await nextTick();
-  initLoco();
+  // Destroy any existing Locomotive Scroll instance first
+  if (locoScroll) {
+    try { locoScroll.destroy(); } catch {}
+    locoScroll = null;
+  }
+  
+  // Remove Locomotive Scroll classes on homepage and ensure scroll snap works
+  if (isHomepage() && typeof window !== 'undefined') {
+    document.documentElement.classList.remove('has-scroll-smooth', 'has-scroll-dragging');
+    document.body.classList.remove('has-scroll-smooth');
+    // Force scroll snap
+    document.documentElement.style.scrollSnapType = 'y mandatory';
+    document.body.style.overflowY = 'auto';
+  }
+  
+  // Only initialize if not on homepage
+  if (!isHomepage()) {
+    initLoco();
+  }
 });
 
 onBeforeUnmount(() => {
@@ -142,14 +172,27 @@ onBeforeUnmount(() => {
   }
 });
 
-const router = useRouter();
 router.afterEach(async () => {
   await nextTick();
+  // Destroy existing instance
   if (locoScroll) {
     try { locoScroll.destroy(); } catch {}
     locoScroll = null;
   }
-  initLoco();
+  
+  // Remove Locomotive Scroll classes on homepage and ensure scroll snap works
+  if (isHomepage() && typeof window !== 'undefined') {
+    document.documentElement.classList.remove('has-scroll-smooth', 'has-scroll-dragging');
+    document.body.classList.remove('has-scroll-smooth');
+    // Force scroll snap
+    document.documentElement.style.scrollSnapType = 'y mandatory';
+    document.body.style.overflowY = 'auto';
+  }
+  
+  // Only initialize if not on homepage
+  if (!isHomepage()) {
+    initLoco();
+  }
 });
 
 /* const toggleLines = () => {

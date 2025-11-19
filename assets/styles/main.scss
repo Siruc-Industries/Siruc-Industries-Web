@@ -30,6 +30,11 @@
   --button-gap: 6px;
   --kbd-offset: -6px;
   --kbd-gap: 6px;
+  
+  // Bento card variables
+  --neutral--800: rgba(255, 255, 255, 0.08);
+  --radius--24px: 24px;
+  --white--2: rgba(255, 255, 255, 0.02);
 }
 
 .dark-mode {
@@ -68,6 +73,10 @@ circle.path {
   box-sizing: border-box !important;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background-color: var(--el-color-bg);
   transition: background-color 0.3s ease;
@@ -76,6 +85,32 @@ body {
   letter-spacing: 0.5px;
   overflow-y: scroll;
   overflow-x: hidden;
+}
+
+/* Snap scroll for homepage only - override Locomotive Scroll */
+html:has(.homepage-container) {
+  scroll-snap-type: y mandatory !important;
+  scroll-behavior: smooth !important;
+}
+
+html:has(.homepage-container).has-scroll-smooth {
+  overflow-y: auto !important;
+  scroll-snap-type: y mandatory !important;
+}
+
+body:has(.homepage-container) {
+  overflow-y: auto !important;
+  scroll-snap-type: y mandatory !important;
+}
+
+body:has(.homepage-container) .has-scroll-smooth {
+  overflow: visible !important;
+}
+
+/* Ensure sections snap properly */
+.homepage-container section {
+  scroll-snap-align: start !important;
+  scroll-snap-stop: always !important;
 }
 
 
