@@ -258,7 +258,7 @@ watch(() => props.isOpen, (isOpen) => {
 
 .contact-title {
   font-size: 32px;
-  font-weight: 600;
+  font-weight: 700;
   color: #1c1c1c;
   margin: 0;
   letter-spacing: -1px;
