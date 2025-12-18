@@ -12,7 +12,10 @@
             brand's digital.
           </p>
           <div class="button-wrapper">
-            <ButtonLink text="Get a quote" type="primary" href="/" iconify-icon="line-md:arrow-right" variant="hero"></ButtonLink>
+            <button class="hero-quote-btn" @click="openSidebar">
+              <span>Get a quote</span>
+              <Icon icon="line-md:arrow-right" :width="24" :height="24" />
+            </button>
           </div>
         </div>
       </div>
@@ -117,11 +120,15 @@
         </div>
       </div>
     </section>
+    
+    <Sidebar :is-open="sidebarOpen" @close="closeSidebar" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, nextTick } from 'vue';
+
+const { sidebarOpen, openSidebar, closeSidebar } = useSidebar();
 
 const heroSection = ref<HTMLElement | null>(null);
 const bentoSection = ref<HTMLElement | null>(null);
@@ -360,13 +367,13 @@ canvas {
       }
     }
     &-text {
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 400;
       letter-spacing: -0.3px;
       line-height: 24px;
       margin-bottom: 24px;
       color: #595959;
-      max-width: 400px;
+      max-width: 480px;
       margin-left: auto;
       margin-right: auto;
       opacity: 0;
@@ -382,6 +389,31 @@ canvas {
   .button-wrapper {
     opacity: 0;
     animation: fadeInBlur 1s ease-out 1.2s forwards;
+  }
+  
+  .hero-quote-btn {
+    background-color: #1c1c1c !important;
+    border: none !important;
+    border-radius: 24px !important;
+    color: white !important;
+    padding: 22px 44px !important;
+    font-size: 18px !important;
+    font-weight: 500 !important;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: background-color 0.3s ease;
+    
+    span {
+      color: white !important;
+    }
+    
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: #1a1a1a !important;
+    }
   }
   
   :deep(.btn) {

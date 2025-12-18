@@ -16,17 +16,9 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { onMounted } from 'vue';
 
-const sidebarOpen = ref(false);
-
-const toggleSidebar = () => {
-  sidebarOpen.value = !sidebarOpen.value;
-};
-
-const closeSidebar = () => {
-  sidebarOpen.value = false;
-};
+const { sidebarOpen, toggleSidebar, closeSidebar } = useSidebar();
 
 // Mark animation as complete after it finishes
 onMounted(() => {
