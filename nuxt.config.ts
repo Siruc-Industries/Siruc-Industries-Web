@@ -9,10 +9,10 @@ export default defineNuxtConfig({
       meta: [
         // <meta name="viewport" content="width=device-width, initial-scale=1">
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { name: 'description', content: 'We make websites' },
+        { name: 'description', content: 'Siruć Industries — senior web development agency crafting websites, apps, and full digital products.' },
         { charset: 'utf-8' },
         { property: 'og:title', content: 'Softwarehouse services' },
-        { property: 'og:description', content: 'We make websites' },
+        { property: 'og:description', content: 'Senior engineers & designers building websites, apps, and full digital products.' },
         { property: 'og:image', content: ' !add https image !' },
       ],
       link: [

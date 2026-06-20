@@ -25,7 +25,7 @@
 }
 
 /* On homepage, allow natural scrolling */
-.global-container:has(.homepage-container) {
+.global-container:has(.homepage) {
   height: auto;
   min-height: 100vh;
 }
@@ -45,9 +45,9 @@
 }
 
 // On homepage, make sure main container doesn't add extra space
-.main-container:has(.homepage-container) {
+.main-container:has(.homepage) {
   height: auto;
-  overflow: hidden;
+  overflow: visible;
 }
 
 

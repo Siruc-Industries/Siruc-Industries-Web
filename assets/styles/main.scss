@@ -88,18 +88,18 @@ body {
   overflow-x: hidden;
 }
 
-body:has(.homepage-container) {
+body:has(.homepage) {
   margin: 0;
   padding: 0;
   background-color: #fbfbfb;
 }
 
 /* Homepage uses regular scroll */
-html:has(.homepage-container) {
+html:has(.homepage) {
   scroll-behavior: smooth;
 }
 
-body:has(.homepage-container) {
+body:has(.homepage) {
   overflow-y: auto;
 }
 
