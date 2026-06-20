@@ -14,7 +14,7 @@
         <div class="card-content">
           <div class="hero-chip">
             <Icon icon="mdi:sparkles" :width="12" :height="12" />
-            <span>Est. 2024 · Bucharest</span>
+            <span>Est. 2025 · Warsaw</span>
           </div>
           <div class="hero-text">
             <h3 class="hero-title">We build products<br />people love to use.</h3>
